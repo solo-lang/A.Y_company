@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A.Y for Technology | نصنع المستقبل الرقمي</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+  <style>
+    :root {
+      --bg-dark: #050e17;
+      --bg-card: #081d2c;
+      --primary: #0fbbff;
+      --secondary: #ff499e;
+      --text-main: #ffffff;
+      --text-muted: #a0b4c8;
+      --glass: rgba(8, 29, 44, 0.65);
+      --border: rgba(15, 187, 255, 0.25);
+      --shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+      --glow: 0 0 25px rgba(15, 187, 255, 0.4);
+      --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    [dir="ltr"] { font-family: 'Inter', sans-serif; }
+    [dir="rtl"] { font-family: 'Cairo', sans-serif; }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg-dark); color: var(--text-main);
+      overflow-x: hidden; line-height: 1.7; position: relative;
+    }
+    /* Background Animation */
+    body::before {
+      content: ''; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
+      background: radial-gradient(circle at center, rgba(15, 187, 255, 0.06) 0%, transparent 50%);
+      z-index: -1; animation: rotateBg 90s linear infinite;
+    }
+    @keyframes rotateBg { 100% { transform: rotate(360deg); } }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+    /* Header */
+    header {
+      position: fixed; width: 100%; top: 0; z-index: 1000;
+      background: rgba(5, 14, 23, 0.85); backdrop-filter: blur(15px);
+      border-bottom: 1px solid var(--border); padding: 15px 0; transition: var(--transition);
+    }
+    .nav-wrapper { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 1.6rem; font-weight: 900; letter-spacing: 0.5px; display: flex; align-items: center; gap: 8px; }
+    .logo span { color: var(--primary); text-shadow: var(--glow); }    .nav-links { display: flex; gap: 25px; list-style: none; align-items: center; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 600; transition: var(--transition); font-size: 0.95rem; }
+    .nav-links a:hover { color: var(--primary); }
+    .controls { display: flex; gap: 12px; align-items: center; }
+    .icon-btn {
+      background: transparent; border: 1px solid var(--border); color: var(--text-muted);
+      width: 36px; height: 36px; border-radius: 8px; cursor: pointer; display: flex;
+      align-items: center; justify-content: center; transition: var(--transition);
+    }
+    .icon-btn:hover { border-color: var(--primary); color: var(--primary); }
+    .btn-cta {
+      background: linear-gradient(135deg, var(--primary), #0088cc); color: var(--bg-dark);
+      padding: 10px 24px; border-radius: 50px; font-weight: 700; text-decoration: none;
+      border: none; cursor: pointer; box-shadow: var(--glow); transition: var(--transition);
+      font-size: 0.9rem;
+    }
+    .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 0 35px rgba(15, 187, 255, 0.6); }
+
+    .hamburger { display: none; font-size: 1.4rem; cursor: pointer; color: var(--primary); }
+    @media (max-width: 900px) {
+      .nav-links { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: var(--bg-card); flex-direction: column; padding: 20px; border-bottom: 1px solid var(--primary); gap: 15px; }
+      .nav-links.active { display: flex; }
+      .hamburger { display: block; }
+      .btn-cta { display: none; }
+    }
+
+    /* Hero */
+    .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding-top: 100px; position: relative; }
+    .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; margin-bottom: 20px; line-height: 1.2; }
+    .hero-content h1 span { color: var(--primary); text-shadow: var(--glow); }
+    .hero-content p { font-size: 1.15rem; color: var(--text-muted); max-width: 650px; margin: 0 auto 40px; }
+    .hero-btns { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { background: var(--primary); color: var(--bg-dark); padding: 14px 35px; border-radius: 50px; font-weight: 700; text-decoration: none; transition: var(--transition); box-shadow: var(--glow); }
+    .btn-outline { border: 2px solid var(--primary); color: var(--primary); padding: 14px 35px; border-radius: 50px; font-weight: 700; text-decoration: none; transition: var(--transition); }
+    .btn-primary:hover, .btn-outline:hover { background: var(--primary); color: var(--bg-dark); transform: translateY(-3px); }
+
+    /* Section Titles */
+    .section-title { text-align: center; margin-bottom: 60px; }
+    .section-title h2 { font-size: 2.4rem; font-weight: 800; color: var(--primary); margin-bottom: 10px; }
+    .section-title p { color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+
+    /* Services */
+    .services { padding: 100px 0; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    .card {
+      background: var(--glass); border: 1px solid var(--border); border-radius: 20px;
+      padding: 35px 30px; transition: var(--transition); position: relative; overflow: hidden; backdrop-filter: blur(10px);
+    }
+    .card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: var(--shadow); }
+    .card-icon { font-size: 2.5rem; color: var(--primary); margin-bottom: 20px; }    .card h3 { font-size: 1.4rem; margin-bottom: 15px; }
+    .card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; }
+    .card-link { color: var(--primary); font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 5px; transition: var(--transition); }
+    .card-link:hover { gap: 10px; }
+
+    /* Process */
+    .process { padding: 100px 0; background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-card) 100%); }
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
+    .step { text-align: center; padding: 25px; background: var(--glass); border-radius: 16px; border: 1px solid var(--border); transition: var(--transition); }
+    .step:hover { border-color: var(--primary); transform: scale(1.03); }
+    .step-num { width: 45px; height: 45px; background: var(--primary); color: var(--bg-dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; margin: 0 auto 15px; font-size: 1.1rem; }
+    .step h4 { margin-bottom: 10px; font-size: 1.1rem; }
+    .step p { color: var(--text-muted); font-size: 0.9rem; }
+
+    /* CEO Section (Fixed Image & Responsive) */
+    .ceo-section { padding: 100px 0; }
+    .ceo-wrapper { display: flex; align-items: center; gap: 50px; flex-wrap: wrap; }
+    .ceo-img { flex: 1; min-width: 280px; text-align: center; position: relative; }
+    .ceo-img img { 
+      width: 100%; max-width: 380px; aspect-ratio: 1/1; object-fit: cover; 
+      border-radius: 24px; border: 3px solid var(--primary); 
+      box-shadow: 0 0 40px rgba(15, 187, 255, 0.25); 
+      transition: var(--transition);
+    }
+    .ceo-img:hover img { transform: scale(1.02); box-shadow: 0 0 50px rgba(15, 187, 255, 0.4); }
+    .ceo-content { flex: 1.5; min-width: 300px; }
+    .ceo-tag { color: var(--secondary); font-weight: 700; letter-spacing: 1px; margin-bottom: 10px; display: block; }
+    .ceo-content h2 { font-size: 2.5rem; margin-bottom: 20px; }
+    .ceo-content p { color: var(--text-muted); margin-bottom: 25px; line-height: 1.8; }
+    .ceo-quote { background: var(--glass); padding: 20px; border-right: 4px solid var(--primary); border-radius: 12px; font-style: italic; color: var(--text-main); }
+    [dir="ltr"] .ceo-quote { border-right: none; border-left: 4px solid var(--primary); }
+
+    /* Future/Upcoming */
+    .upcoming { padding: 100px 0; background: var(--bg-card); }
+    .card.locked { opacity: 0.8; border-style: dashed; position: relative; }
+    .card.locked .card-icon { color: var(--secondary); }
+    .badge { position: absolute; top: 20px; left: 20px; background: var(--secondary); color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; }
+    [dir="ltr"] .badge { left: auto; right: 20px; }
+
+    /* Contact / CTA Section (Form Removed) */
+    .contact { padding: 100px 0; text-align: center; }
+    .contact-grid { display: flex; flex-direction: column; align-items: center; gap: 40px; }
+    .contact-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; width: 100%; max-width: 800px; }
+    .info-card { background: var(--glass); padding: 20px; border-radius: 16px; border: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; gap: 10px; transition: var(--transition); }
+    .info-card:hover { border-color: var(--primary); transform: translateY(-5px); }
+    .info-card i { font-size: 1.5rem; color: var(--primary); }
+    .info-card a { color: var(--text-muted); text-decoration: none; transition: var(--transition); }
+    .info-card a:hover { color: var(--primary); }
+
+    .big-cta-btn {      display: inline-flex; align-items: center; gap: 12px;
+      background: linear-gradient(135deg, var(--primary), #0088cc);
+      color: var(--bg-dark); padding: 18px 45px; border-radius: 60px;
+      font-size: 1.3rem; font-weight: 800; text-decoration: none;
+      box-shadow: 0 0 30px rgba(15, 187, 255, 0.4);
+      transition: var(--transition); margin-top: 20px; position: relative; overflow: hidden;
+    }
+    .big-cta-btn::before {
+      content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: 0.5s;
+    }
+    .big-cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 50px rgba(15, 187, 255, 0.7); }
+    .big-cta-btn:hover::before { left: 100%; }
+
+    /* Footer */
+    footer { padding: 50px 0 20px; text-align: center; border-top: 1px solid var(--border); }
+    .footer-logo { font-size: 1.8rem; font-weight: 900; margin-bottom: 20px; }
+    .footer-logo span { color: var(--primary); }
+    .socials { display: flex; justify-content: center; gap: 20px; margin-bottom: 30px; }
+    .socials a { color: var(--text-muted); font-size: 1.4rem; transition: var(--transition); width: 45px; height: 45px; border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .socials a:hover { color: var(--primary); border-color: var(--primary); transform: translateY(-5px); }
+    .copyright { color: var(--text-muted); font-size: 0.85rem; }
+
+    /* Scroll Animations */
+    .fade-up { opacity: 0; transform: translateY(40px); transition: all 0.8s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 768px) {
+      .hero-content h1 { font-size: 2.2rem; }
+      .ceo-wrapper { flex-direction: column; text-align: center; }
+      .ceo-quote { border-right: none; border-top: 4px solid var(--primary); text-align: center; }
+      .big-cta-btn { font-size: 1.1rem; padding: 16px 35px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav-wrapper">
+      <div class="logo">A.Y <span data-ar="for Technology" data-en="for Technology">for Technology</span></div>
+      <div class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('active')"><i class="fa-solid fa-bars"></i></div>
+      <ul class="nav-links">
+        <li><a href="#home" data-ar="الرئيسية" data-en="Home">الرئيسية</a></li>
+        <li><a href="#services" data-ar="خدماتنا" data-en="Services">خدماتنا</a></li>
+        <li><a href="#process" data-ar="كيف نعمل" data-en="Process">كيف نعمل</a></li>
+        <li><a href="#ceo" data-ar="المؤسس" data-en="Founder">المؤسس</a></li>
+        <li><a href="#upcoming" data-ar="المستقبل" data-en="Future">المستقبل</a></li>
+        <li><a href="#contact" data-ar="تواصل معنا" data-en="Contact">تواصل معنا</a></li>
+      </ul>      <div class="controls">
+        <button class="icon-btn" id="langToggle" onclick="toggleLang()">EN</button>
+        <a href="contract.html" class="btn-cta" data-ar="ابدأ مشروعك" data-en="Start Project">ابدأ مشروعك</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero" id="home">
+    <div class="container hero-content fade-up">
+      <h1 data-ar="نصنع المستقبل الرقمي<br>بـ <span>ذكاء اصطناعي محلي</span>" data-en="We Craft the Digital Future<br>with <span>Local AI</span>">نصنع المستقبل الرقمي<br>بـ <span>ذكاء اصطناعي محلي</span></h1>
+      <p data-ar="حلول تقنية مبتكرة، مواقع احترافية، وبوتات ذكية. نحول أفكارك إلى واقع رقمي ملموس بسرعة، أمان، ودقة لا تُضاهى." data-en="Innovative tech solutions, professional websites, and smart bots. We turn your ideas into tangible digital reality with speed, security, and unmatched precision.">حلول تقنية مبتكرة، مواقع احترافية، وبوتات ذكية. نحول أفكارك إلى واقع رقمي ملموس بسرعة، أمان، ودقة لا تُضاهى.</p>
+      <div class="hero-btns">
+        <a href="#services" class="btn-primary" data-ar="استكشف خدماتنا" data-en="Explore Services">استكشف خدماتنا</a>
+        <a href="#ceo" class="btn-outline" data-ar="تعرف على القائد" data-en="Meet the Leader">تعرف على القائد</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="services" id="services">
+    <div class="container">
+      <div class="section-title fade-up">
+        <h2 data-ar="منتجاتنا الرقمية" data-en="Our Digital Products">منتجاتنا الرقمية</h2>
+        <p data-ar="أدوات احترافية صُنعت بعناية فائقة لخدمة أعمالك وتسريع نموك." data-en="Professional tools crafted with extreme care to serve your business and accelerate growth.">أدوات احترافية صُنعت بعناية فائقة لخدمة أعمالك وتسريع نموك.</p>
+      </div>
+      <div class="grid">
+        <div class="card fade-up">
+          <div class="card-icon"><i class="fa-solid fa-robot"></i></div>
+          <h3 data-ar="A.Y Bot Builder" data-en="A.Y Bot Builder">A.Y Bot Builder</h3>
+          <p data-ar="أنشئ بوتات ذكية متجاوبة في ثوانٍ. تحكم كامل في السيناريوهات، ردود آلية دقيقة، وتصميم شات يعمل أوفلاين." data-en="Create responsive smart bots in seconds. Full control over scenarios, precise automated replies, and offline-capable chat design.">أنشئ بوتات ذكية متجاوبة في ثوانٍ. تحكم كامل في السيناريوهات، ردود آلية دقيقة، وتصميم شات يعمل أوفلاين.</p>
+          <a href="#" class="card-link" data-ar="جرب الأداة ←" data-en="Try Tool ←">جرب الأداة ←</a>
+        </div>
+        <div class="card fade-up">
+          <div class="card-icon"><i class="fa-solid fa-id-card"></i></div>
+          <h3 data-ar="A.Y Portfolio" data-en="A.Y Portfolio">A.Y Portfolio</h3>
+          <p data-ar="موقع شخصي فاخر ومتجاوب يعكس هويتك المهنية. تصميم عصري، سرعة فائقة، وجاهز للرفع فوراً على أي استضافة." data-en="A premium, responsive personal website that reflects your professional identity. Modern design, blazing speed, and ready to deploy instantly.">موقع شخصي فاخر ومتجاوب يعكس هويتك المهنية. تصميم عصري، سرعة فائقة، وجاهز للرفع فوراً على أي استضافة.</p>
+          <a href="#" class="card-link" data-ar="أنشئ موقعك ←" data-en="Build Yours ←">أنشئ موقعك ←</a>
+        </div>
+        <div class="card fade-up">
+          <div class="card-icon"><i class="fa-solid fa-qrcode"></i></div>
+          <h3 data-ar="A.Y Social Hub" data-en="A.Y Social Hub">A.Y Social Hub</h3>
+          <p data-ar="بطاقة عمل ذكية مع QR Code حقيقي يعمل بدون إنترنت. اجمع كل روابطك وهويتك الرقمية في مكان واحد أنيق." data-en="A smart business card with a real QR code that works offline. Consolidate all your links and digital identity in one elegant place.">بطاقة عمل ذكية مع QR Code حقيقي يعمل بدون إنترنت. اجمع كل روابطك وهويتك الرقمية في مكان واحد أنيق.</p>
+          <a href="#" class="card-link" data-ar="صمم بطاقتك ←" data-en="Design Card ←">صمم بطاقتك ←</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="process" id="process">
+    <div class="container">
+      <div class="section-title fade-up">        <h2 data-ar="رحلة العمل معنا" data-en="Our Work Process">رحلة العمل معنا</h2>
+        <p data-ar="منهجية واضحة ومنظمة تضمن لك نتائج استثنائية في كل مرحلة." data-en="A clear, organized methodology guaranteeing exceptional results at every stage.">منهجية واضحة ومنظمة تضمن لك نتائج استثنائية في كل مرحلة.</p>
+      </div>
+      <div class="steps">
+        <div class="step fade-up"><div class="step-num">1</div><h4 data-ar="اكتشاف الرؤية" data-en="Vision Discovery">اكتشاف الرؤية</h4><p data-ar="نستمع لأهدافك ونحلل متطلبات مشروعك بدقة متناهية." data-en="We listen to your goals and analyze your project requirements with extreme precision.">نستمع لأهدافك ونحلل متطلبات مشروعك بدقة متناهية.</p></div>
+        <div class="step fade-up"><div class="step-num">2</div><h4 data-ar="التخطيط الاستراتيجي" data-en="Strategic Planning">التخطيط الاستراتيجي</h4><p data-ar="نضع خارطة طريق تقنية واضحة مع جدول زمني وميزانية محددة." data-en="We lay out a clear technical roadmap with a defined timeline and budget.">نضع خارطة طريق تقنية واضحة مع جدول زمني وميزانية محددة.</p></div>
+        <div class="step fade-up"><div class="step-num">3</div><h4 data-ar="التنفيذ الاحترافي" data-en="Professional Execution">التنفيذ الاحترافي</h4><p data-ar="فريقنا يبني الحل بأحدث التقنيات وأعلى معايير الجودة والأمان." data-en="Our team builds the solution using the latest tech and highest quality/security standards.">فريقنا يبني الحل بأحدث التقنيات وأعلى معايير الجودة والأمان.</p></div>
+        <div class="step fade-up"><div class="step-num">4</div><h4 data-ar="المراجعة والتسليم" data-en="Review & Delivery">المراجعة والتسليم</h4><p data-ar="نختبر كل تفصيلة معك، نسلم المشروع جاهزاً، ونقدم دعماً مستمراً." data-en="We test every detail with you, deliver a ready project, and provide ongoing support.">نختبر كل تفصيلة معك، نسلم المشروع جاهزاً، ونقدم دعماً مستمراً.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ceo-section" id="ceo">
+    <div class="container">
+      <div class="ceo-wrapper fade-up">
+        <div class="ceo-img">
+          <!-- ضع رابط صورتك الحقيقية هنا -->
+          <img src="photo.png" alt="Abdullah Omran">
+        </div>
+        <div class="ceo-content">
+          <span class="ceo-tag" data-ar="المؤسس والرئيس التنفيذي" data-en="Founder & CEO">المؤسس والرئيس التنفيذي</span>
+          <h2 data-ar="عبدالله عمران" data-en="Abdullah Omran">عبدالله عمران</h2>
+          <p data-ar="قائد تقني ورؤيوي يؤمن بأن الذكاء الاصطناعي والتقنية الحديثة هما وقود التحول الرقمي الحقيقي. بخبرة تمتد لسنوات في بناء الأنظمة الذكية والمنصات الرقمية، يقود عبدالله فريق A.Y toward نحو الابتكار المستمر. شغفه بالتفاصيل الدقيقة وتجربة المستخدم هو ما يميز كل مشروع يلمسه. لا نقدم مجرد أكواد، بل نصنع أنظمة حية تنمو مع عملك." data-en="A visionary tech leader who believes AI and modern technology are the true fuel for digital transformation. With years of experience building smart systems and digital platforms, Abdullah leads the A.Y team toward continuous innovation. His passion for precision and user experience distinguishes every project he touches. We don't just deliver code; we build living systems that grow with your business.">قائد تقني ورؤيوي يؤمن بأن الذكاء الاصطناعي والتقنية الحديثة هما وقود التحول الرقمي الحقيقي. بخبرة تمتد لسنوات في بناء الأنظمة الذكية والمنصات الرقمية، يقود عبدالله فريق A.Y toward نحو الابتكار المستمر. شغفه بالتفاصيل الدقيقة وتجربة المستخدم هو ما يميز كل مشروع يلمسه. لا نقدم مجرد أكواد، بل نصنع أنظمة حية تنمو مع عملك.</p>
+          <div class="ceo-quote" data-ar=""لا نبني مجرد مواقع أو تطبيقات، نحن نبني تجارب رقمية تصنع الفارق. كل مشروع نلمسه نضع فيه قلبنا وعقولنا."" data-en=""We don't just build websites or apps; we craft digital experiences that make a difference. Every project we touch gets our heart and mind."">"لا نبني مجرد مواقع أو تطبيقات، نحن نبني تجارب رقمية تصنع الفارق. كل مشروع نلمسه نضع فيه قلبنا وعقولنا."</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="upcoming" id="upcoming">
+    <div class="container">
+      <div class="section-title fade-up">
+        <h2 data-ar="قريباً & حصري" data-en="Coming Soon & Exclusive">قريباً & حصري</h2>
+        <p data-ar="نعمل حالياً على تقنيات متقدمة ستغير قواعد اللعبة. الوصول محدود حالياً لضمان الجودة." data-en="We are currently developing advanced technologies that will change the game. Access is currently limited to ensure quality.">نعمل حالياً على تقنيات متقدمة ستغير قواعد اللعبة. الوصول محدود حالياً لضمان الجودة.</p>
+      </div>
+      <div class="grid">
+        <div class="card locked fade-up">
+          <span class="badge" data-ar="🔒 مقيد الوصول" data-en="🔒 Restricted Access"> مقيد الوصول</span>
+          <div class="card-icon"><i class="fa-solid fa-microphone-lines"></i></div>
+          <h3 data-ar="A.Y Voice Agents" data-en="A.Y Voice Agents">A.Y Voice Agents</h3>
+          <p data-ar="وكلاء صوت بالذكاء الاصطناعي يردون المكالمات بلهجة محلية حقيقية، يحجزون المواعيد، ويديرون خدمة العملاء آلياً." data-en="AI voice agents that answer calls in a real local accent, book appointments, and manage customer service automatically.">وكلاء صوت بالذكاء الاصطناعي يردون المكالمات بلهجة محلية حقيقية، يحجزون المواعيد، ويديرون خدمة العملاء آلياً.</p>
+        </div>
+        <div class="card locked fade-up">
+          <span class="badge" data-en="⚙️ In Development" data-ar="⚙️ قيد التطوير">️ قيد التطوير</span>
+          <div class="card-icon"><i class="fa-solid fa-brain"></i></div>
+          <h3 data-ar="A.Y Neural Core" data-en="A.Y Neural Core">A.Y Neural Core</h3>
+          <p data-ar="نظام تحليل بيانات عصبي للشركات الكبرى للتنبؤ بالمبيعات، تحسين المخزون، واتخاذ القرارات الاستراتيجية بدقة 99%." data-en="A neural data analytics system for enterprises to forecast sales, optimize inventory, and make strategic decisions with 99% accuracy.">نظام تحليل بيانات عصبي للشركات الكبرى للتنبؤ بالمبيعات، تحسين المخزون، واتخاذ القرارات الاستراتيجية بدقة 99%.</p>
+        </div>
+      </div>
+    </div>  </section>
+
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="section-title fade-up">
+        <h2 data-ar="لنبدأ العمل معاً" data-en="Let's Work Together">لنبدأ العمل معاً</h2>
+        <p data-ar="سواء كان لديك مشروع جاهز أو فكرة تحتاج إلى تطوير، نحن هنا لنحولها إلى واقع." data-en="Whether you have a ready project or an idea needing development, we are here to turn it into reality.">سواء كان لديك مشروع جاهز أو فكرة تحتاج إلى تطوير، نحن هنا لنحولها إلى واقع.</p>
+      </div>
+      <div class="contact-grid fade-up">
+        <div class="contact-info">
+          <div class="info-card"><i class="fa-solid fa-user-tie"></i><strong data-ar="الرئيس التنفيذي" data-en="CEO">الرئيس التنفيذي</strong><span>Abdullah Omran</span></div>
+          <div class="info-card"><i class="fa-solid fa-phone"></i><strong data-ar="الهاتف" data-en="Phone">الهاتف</strong><a href="tel:01559722990">01559722990</a></div>
+          <div class="info-card"><i class="fa-solid fa-envelope"></i><strong data-ar="البريد الإلكتروني" data-en="Email">البريد الإلكتروني</strong><a href="mailto:abdallahaliomran@gmail.com">abdallahaliomran@gmail.com</a></div>
+          <div class="info-card"><i class="fa-solid fa-location-dot"></i><strong data-ar="الموقع" data-en="Location">الموقع</strong><span data-ar="القاهرة، مصر" data-en="Cairo, Egypt">القاهرة، مصر</span></div>
+        </div>
+        <a href="contract.html" class="big-cta-btn" data-ar="ابدأ مشروعك الآن ←" data-en="Start Your Project Now ←">ابدأ مشروعك الآن ←</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-logo">A.Y <span data-ar="for Technology" data-en="for Technology">for Technology</span></div>
+      <div class="socials">
+        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="#"><i class="fa-brands fa-github"></i></a>
+        <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+      </div>
+      <p class="copyright" data-ar="© 2026 A.Y for Technology. جميع الحقوق محفوظة. CEO: Abdullah Omran." data-en="© 2026 A.Y for Technology. All Rights Reserved. CEO: Abdullah Omran.">© 2026 A.Y for Technology. جميع الحقوق محفوظة. CEO: Abdullah Omran.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Language Toggle
+    let isArabic = true;
+    let typedInstance = null;
+
+    function initTyped() {
+      const el = document.querySelector('.typed-text');
+      if (!el) return;
+      if (typedInstance) typedInstance.destroy();
+      const strings = isArabic ? ['ذكاء اصطناعي محلي', 'تقنية متطورة', 'إبداع رقمي'] : ['Local AI', 'Advanced Tech', 'Digital Innovation'];
+      typedInstance = new Typed('.typed-text', {
+        strings: strings,
+        typeSpeed: 60,
+        backSpeed: 40,
+        loop: true,
+        showCursor: true,
+        cursorChar: '|'      });
+    }
+
+    function toggleLang() {
+      isArabic = !isArabic;
+      document.documentElement.lang = isArabic ? 'ar' : 'en';
+      document.documentElement.dir = isArabic ? 'rtl' : 'ltr';
+      document.getElementById('langToggle').textContent = isArabic ? 'EN' : 'عربي';
+      
+      document.querySelectorAll('[data-ar]').forEach(el => {
+        el.innerHTML = isArabic ? el.dataset.ar : el.dataset.en;
+      });
+      initTyped();
+    }
+
+    // Init Typed on Load
+    document.addEventListener('DOMContentLoaded', () => {
+      // Insert typed span dynamically
+      const heroH1 = document.querySelector('.hero-content h1');
+      const typedSpan = document.createElement('span');
+      typedSpan.className = 'typed-text';
+      typedSpan.style.color = 'var(--primary)';
+      // Place it inside the first span
+      const existingSpan = heroH1.querySelector('span');
+      if(existingSpan) existingSpan.appendChild(typedSpan);
+      initTyped();
+    });
+
+    // Scroll Animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Smooth Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+        document.querySelector('.nav-links').classList.remove('active');
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A.Y Portfolio Builder | اصنع بورتفوليو احترافي</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --dark-clr: #081d2c; --second-dark-clr: #112e42; --text-clr: #f1f5f9;
+      --light-text-clr: #c9d9e8; --global-clr: #0fbbff; --btn-clr: #ff499e;
+      --transition: 0.3s ease;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+    body { background: var(--dark-clr); color: var(--text-clr); line-height: 1.6; overflow-x: hidden; }
+    
+    /* Builder Header */
+    .b-header { padding: 1.5rem 5%; display: flex; justify-content: space-between; align-items: center; background: var(--second-dark-clr); border-bottom: 1px solid rgba(15,187,255,0.2); position: sticky; top: 0; z-index: 100; }
+    .b-logo { font-size: 1.8rem; font-weight: 700; color: var(--text-clr); } .b-logo span { color: var(--global-clr); }
+    .b-nav a { color: var(--light-text-clr); margin-left: 1.5rem; text-decoration: none; transition: var(--transition); } .b-nav a:hover { color: var(--global-clr); }
+
+    /* Builder Hero */
+    .b-hero { text-align: center; padding: 8rem 5% 5rem; background: linear-gradient(180deg, var(--dark-clr) 0%, var(--second-dark-clr) 100%); }
+    .b-hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 1rem; } .b-hero h1 span { color: var(--global-clr); }
+    .b-hero p { font-size: 1.2rem; color: var(--light-text-clr); max-width: 700px; margin: 0 auto 2rem; }
+    .b-btn { background: var(--global-clr); color: var(--dark-clr); padding: 14px 32px; border-radius: 8px; font-weight: 700; text-decoration: none; display: inline-block; transition: var(--transition); box-shadow: 0 4px 15px rgba(15,187,255,0.3); }
+    .b-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(15,187,255,0.5); }
+
+    /* Builder Features */
+    .b-features { padding: 4rem 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; }
+    .b-card { background: var(--second-dark-clr); padding: 2rem; border-radius: 12px; border: 1px solid rgba(15,187,255,0.1); text-align: center; transition: var(--transition); }
+    .b-card:hover { transform: translateY(-5px); border-color: var(--global-clr); }
+    .b-card i { font-size: 2.5rem; color: var(--global-clr); margin-bottom: 1rem; } .b-card h3 { margin-bottom: 0.5rem; } .b-card p { color: var(--light-text-clr); font-size: 0.95rem; }
+
+    /* Builder Form */
+    .b-form { padding: 4rem 5%; max-width: 900px; margin: 0 auto; }
+    .form-section { background: var(--second-dark-clr); padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; border: 1px solid rgba(15,187,255,0.2); }
+    .form-section h3 { color: var(--global-clr); margin-bottom: 1rem; border-bottom: 1px dashed var(--global-clr); padding-bottom: 0.5rem; }
+    .input-group { margin-bottom: 1rem; } label { display: block; margin-bottom: 0.5rem; color: var(--light-text-clr); font-weight: 500; }
+    input, textarea { width: 100%; padding: 12px; background: var(--dark-clr); border: 1px solid rgba(255,255,255,0.1); color: var(--text-clr); border-radius: 8px; font-size: 1rem; }
+    input:focus, textarea:focus { border-color: var(--global-clr); outline: none; box-shadow: 0 0 0 3px rgba(15,187,255,0.15); }
+    .dynamic-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 10px; }
+    .list-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .list-row input { flex: 1; min-width: 140px; }
+    .btn-remove { background: var(--btn-clr); color: white; border: none; width: 34px; height: 34px; border-radius: 6px; cursor: pointer; }
+    .add-btn { background: transparent; border: 2px dashed var(--global-clr); color: var(--global-clr); width: 100%; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: 600; margin-top: 8px; }
+    .generate-btn { width: 100%; padding: 16px; background: linear-gradient(135deg, var(--global-clr), #0a8bc4); color: var(--dark-clr); border: none; border-radius: 10px; font-size: 1.3rem; font-weight: 700; cursor: pointer; margin: 2rem 0; transition: var(--transition); box-shadow: 0 4px 15px rgba(15,187,255,0.3); }
+    .generate-btn:hover { transform: translateY(-2px); }
+    footer { text-align: center; padding: 2rem; color: var(--light-text-clr); font-size: 0.9rem; border-top: 1px solid var(--second-dark-clr); margin-top: 3rem; } footer strong { color: var(--global-clr); }
+    @media(max-width: 768px) {
+      .b-header { flex-direction: column; gap: 1rem; }
+      .list-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- 🏗️ BUILDER SITE INTERFACE -->
+<header class="b-header">
+  <div class="b-logo">A.Y <span>Portfolio</span></div>
+  <nav class="b-nav">
+    <a href="#features">المميزات</a>
+    <a href="#builder">ابدأ الآن</a>
+  </nav>
+</header>
+
+<section class="b-hero">
+  <h1>اصنع بورتفوليو احترافي <br><span>بضغطة زر واحدة</span></h1>
+  <p>أدخل بياناتك، واحصل على موقع شخصي كامل، متجاوب 100% مع الموبايل والكمبيوتر، وجاهز للرفع فوراً.</p>
+  <a href="#builder" class="b-btn">ابدأ الإنشاء الآن</a>
+</section>
+
+<section class="b-features" id="features">
+  <div class="b-card"><i class="fa-solid fa-mobile-screen"></i><h3>متجاوب بالكامل</h3><p>يعمل بسلاسة على جميع الأجهزة بدون أي أخطاء في الأبعاد أو القوائم.</p></div>
+  <div class="b-card"><i class="fa-solid fa-wand-magic-sparkles"></i><h3>توليد فوري</h3><p>كل المعالجة تتم محلياً على جهازك. احصل على ملف HTML جاهز في ثوانٍ.</p></div>
+  <div class="b-card"><i class="fa-solid fa-shield-halved"></i><h3>خصوصية تامة</h3><p>لا يتم إرسال أي بيانات خارجياً. تحكم كامل في محتواك وأمانك.</p></div>
+</section>
+
+<section class="b-form" id="builder">
+  <div class="form-section">
+    <h3>👤 البيانات الأساسية</h3>
+    <div class="input-group"><label>الاسم الكامل</label><input type="text" id="name" placeholder="مثال: Ahmed Omar"></div>
+    <div class="input-group"><label>المسمى الوظيفي</label><input type="text" id="title" placeholder="مثال: Full Stack Developer"></div>
+    <div class="input-group"><label>نبذة تعريفية</label><textarea id="about" placeholder="اكتب 2-3 أسطر عن خبرتك..."></textarea></div>
+    <div class="input-group"><label>رابط صورة البروفايل (اختياري)</label><input type="url" id="profileImg" placeholder="https://example.com/photo.png"></div>
+    <div class="input-group"><label>رابط الـ CV (اختياري)</label><input type="url" id="cvLink" placeholder="https://example.com/cv.pdf"></div>
+  </div>
+
+  <div class="form-section">
+    <h3>📊 الإحصائيات</h3>
+    <div id="statsList" class="dynamic-list">
+      <div class="list-row"><input type="text" class="s-num" placeholder="الرقم"><input type="text" class="s-label" placeholder="الوصف"><button class="btn-remove" onclick="this.closest('.list-row').remove()">✕</button></div>
+    </div>
+    <button class="add-btn" onclick="addItem('statsList','s-num')">➕ إضافة إحصائية</button>
+  </div>
+
+  <div class="form-section">
+    <h3>💼 الخدمات</h3>
+    <div id="servicesList" class="dynamic-list">      <div class="list-row"><input type="text" class="svc-title" placeholder="اسم الخدمة"><input type="text" class="svc-desc" placeholder="وصف مختصر"><button class="btn-remove" onclick="this.closest('.list-row').remove()">✕</button></div>
+    </div>
+    <button class="add-btn" onclick="addItem('servicesList','svc-title')">➕ إضافة خدمة</button>
+  </div>
+
+  <div class="form-section">
+    <h3>🚀 المشاريع</h3>
+    <div id="projectsList" class="dynamic-list">
+      <div class="list-row"><input type="url" class="p-img" placeholder="رابط الصورة"><input type="text" class="p-title" placeholder="اسم المشروع"><input type="url" class="p-link" placeholder="رابط المشروع"><button class="btn-remove" onclick="this.closest('.list-row').remove()">✕</button></div>
+    </div>
+    <button class="add-btn" onclick="addItem('projectsList','p-title')">➕ إضافة مشروع</button>
+  </div>
+
+  <div class="form-section">
+    <h3>📱 روابط التواصل</h3>
+    <div class="list-row" style="flex-wrap:wrap; gap:10px;">
+      <input type="url" id="socialGit" placeholder="GitHub"><input type="url" id="socialLn" placeholder="LinkedIn">
+      <input type="url" id="socialTw" placeholder="Twitter/X"><input type="url" id="socialIg" placeholder="Instagram">
+    </div>
+  </div>
+
+  <button class="generate-btn" onclick="generatePortfolio()">⬇️ إنشاء وتحميل البورتفوليو</button>
+</section>
+
+<footer>Powered by <strong>A.Y for Technology</strong> | CEO: عبدالله عمران</footer>
+
+<!-- 🧠 LOGIC & PORTFOLIO GENERATOR -->
+<script>
+  function addItem(listId, focusClass) {
+    const list = document.getElementById(listId);
+    const row = document.createElement('div');
+    row.className = 'list-row';
+    row.innerHTML = `<input type="text" class="${focusClass}" placeholder="أدخل البيانات"><button class="btn-remove" onclick="this.closest('.list-row').remove()">✕</button>`;
+    list.appendChild(row);
+    row.querySelector(`.${focusClass}`).focus();
+  }
+
+  function generatePortfolio() {
+    const d = {
+      n: document.getElementById('name').value.trim(), t: document.getElementById('title').value.trim(),
+      a: document.getElementById('about').value.trim(), img: document.getElementById('profileImg').value.trim(),
+      cv: document.getElementById('cvLink').value.trim(),
+      stats: Array.from(document.querySelectorAll('#statsList .list-row')).map(r => ({n:r.querySelector('.s-num').value, l:r.querySelector('.s-label').value})).filter(i=>i.n),
+      services: Array.from(document.querySelectorAll('#servicesList .list-row')).map(r => ({t:r.querySelector('.svc-title').value, d:r.querySelector('.svc-desc').value})).filter(i=>i.t),
+      projects: Array.from(document.querySelectorAll('#projectsList .list-row')).map(r => ({i:r.querySelector('.p-img').value, t:r.querySelector('.p-title').value, l:r.querySelector('.p-link').value})).filter(i=>i.t),
+      git: document.getElementById('socialGit').value.trim(), ln: document.getElementById('socialLn').value.trim(),
+      tw: document.getElementById('socialTw').value.trim(), ig: document.getElementById('socialIg').value.trim()
+    };
+    if(!d.n || !d.t) return alert('الاسم والمسمى الوظيفي مطلوبان');
+    const html = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${d.n} - ${d.t}</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{--dark-clr:#081d2c;--second-dark-clr:#112e42;--text-clr:#f1f5f9;--light-text-clr:#c9d9e8;--global-clr:#0fbbff;--btn-clr:#ff499e}
+*{margin:0;padding:0;box-sizing:border-box;text-decoration:none;border:none;outline:none;font-family:'Segoe UI',Tahoma,sans-serif}
+html{scroll-behavior:smooth}body{background:var(--dark-clr);color:var(--text-clr);line-height:1.5;letter-spacing:0.5px}
+header{position:fixed;width:100%;top:0;background:rgba(8,29,44,0.95);backdrop-filter:blur(10px);z-index:1000;padding:1rem 0;border-bottom:1px solid rgba(15,187,255,0.2)}
+.navbar{max-width:1200px;margin:auto;padding:0 20px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:1.8rem;font-weight:700;color:var(--text-clr)}.logo span{color:var(--global-clr)}
+.nav-menu{display:flex;gap:1.5rem;list-style:none}.nav-menu li a{color:var(--text-clr);font-size:1rem;font-weight:500;transition:.3s;position:relative}
+.nav-menu li a:hover{color:var(--global-clr)}.nav-menu li a::after{content:'';position:absolute;bottom:-5px;left:0;width:0;height:2px;background:var(--global-clr);transition:.3s}
+.nav-menu li a:hover::after{width:100%}
+.cv-btn{background:var(--btn-clr);color:var(--text-clr);padding:8px 16px;border-radius:5px;font-weight:600;box-shadow:0 0 5px var(--btn-clr);transition:.3s}
+.cv-btn:hover{box-shadow:0 0 15px var(--btn-clr)}
+section{padding:100px 20px 60px;max-width:1200px;margin:auto}
+.hero{display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+.hero-img{flex:1;min-width:250px;text-align:center}.hero-img img{width:100%;max-width:350px;filter:drop-shadow(0 0 30px var(--global-clr));border-radius:50%}
+.hero-content{flex:1;min-width:280px}.hero-content h3{font-size:1.3rem;color:var(--global-clr);margin-bottom:10px}
+.hero-content h1{font-size:2.5rem;font-weight:700;line-height:1.2;margin-bottom:10px}.hero-content h2{font-size:1.8rem;font-weight:600;margin-bottom:20px;color:var(--global-clr)}
+.hero-content p{color:var(--light-text-clr);margin-bottom:30px;font-size:1rem}
+.social-icons{display:flex;gap:1rem;margin-bottom:30px}.social-icons a{color:var(--global-clr);font-size:1.5rem;transition:.3s}.social-icons a:hover{color:var(--btn-clr);transform:translateY(-3px)}
+.btn-group{display:flex;gap:1rem;flex-wrap:wrap}
+.btn{padding:10px 24px;border-radius:5px;font-weight:600;cursor:pointer;transition:.3s;border:2px solid var(--global-clr);background:var(--global-clr);color:var(--dark-clr)}
+.btn.outline{background:transparent;color:var(--global-clr)}.btn:hover{opacity:0.8}
+.stats{display:flex;flex-wrap:wrap;justify-content:center;gap:2rem;margin-top:40px;padding-top:30px;border-top:1px solid rgba(255,255,255,0.1)}
+.stat-item{text-align:center;flex:1;min-width:150px}.stat-item h2{font-size:2rem;color:var(--global-clr)}.stat-item span{color:var(--light-text-clr)}
+.about{display:flex;align-items:center;gap:2rem;flex-wrap:wrap;margin-bottom:60px}.about-text{flex:1;min-width:280px}
+.about-text h2{font-size:2rem;margin-bottom:15px;color:var(--global-clr)}.about-text h3{font-size:1.5rem;margin-bottom:15px}
+.about-text p{color:var(--light-text-clr);margin-bottom:20px}
+.about-img{flex:1;min-width:250px;text-align:center}
+.about-img-container{width:200px;height:200px;margin:auto;border:4px solid var(--global-clr);border-radius:50%;overflow:hidden;box-shadow:0 0 20px rgba(15,187,255,0.3)}
+.about-img-container img{width:100%;height:100%;object-fit:cover}
+.services{text-align:center;margin-bottom:60px}.services h2{font-size:2rem;margin-bottom:30px;color:var(--global-clr)}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem}
+.service-card{background:var(--second-dark-clr);padding:1.5rem;border-radius:10px;transition:.3s;border:1px solid transparent}
+.service-card:hover{border-color:var(--global-clr);transform:translateY(-5px)}
+.service-card i{font-size:2rem;color:var(--global-clr);margin-bottom:15px}.service-card h3{margin-bottom:10px}.service-card p{color:var(--light-text-clr);font-size:0.9rem}
+.portfolio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;margin-bottom:60px}
+.portfolio-card{background:var(--second-dark-clr);border-radius:10px;overflow:hidden;transition:.3s}.portfolio-card:hover{transform:scale(1.02)}
+.portfolio-card img{width:100%;height:180px;object-fit:cover}.portfolio-info{padding:1rem}.portfolio-info h3{margin-bottom:8px}
+.contact{text-align:center;padding-bottom:60px}.contact h2{font-size:2rem;color:var(--global-clr);margin-bottom:20px}.contact p{color:var(--light-text-clr);margin-bottom:30px}
+footer{text-align:center;padding:20px;background:var(--second-dark-clr);color:var(--light-text-clr);font-size:0.85rem;border-top:1px solid rgba(255,255,255,0.05)}
+.hamburger{display:none;cursor:pointer;color:var(--text-clr);font-size:1.5rem}
+@media(max-width:768px){
+  .hamburger{display:block}.nav-menu{position:fixed;top:70px;left:0;width:100%;background:var(--second-dark-clr);flex-direction:column;padding:2rem;gap:1rem;text-align:center;transform:translateX(100%);transition:0.4s;box-shadow:0 10px 30px rgba(0,0,0,0.5)}
+  .nav-menu.active{transform:translateX(0)}.hero{flex-direction:column-reverse;text-align:center}.about{flex-direction:column}
+}
+</style></head><body>
+<header><nav class="navbar"><div class="logo">${d.n.split(' ')[0]}<span>.</span></div>
+<div class="hamburger" onclick="document.querySelector('.nav-menu').classList.toggle('active')"><i class="fa-solid fa-bars"></i></div><ul class="nav-menu"><li><a href="#home">Home</a></li><li><a href="#about">About</a></li><li><a href="#services">Services</a></li><li><a href="#portfolio">Portfolio</a></li><li><a href="#contact">Contact</a></li>${d.cv?'<li><a href="'+d.cv+'" class="cv-btn" download>Download CV</a></li>':''}</ul></nav></header>
+<section class="hero" id="home">
+  <div class="hero-content"><h3>Hello, I'm</h3><h1>${d.n}</h1><h2>${d.t}</h2><p>${d.a||'Passionate professional delivering high-quality results.'}</p>
+    <div class="social-icons">${d.git?'<a href="'+d.git+'" target="_blank"><i class="fa-brands fa-github"></i></a>':''}${d.ln?'<a href="'+d.ln+'" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>':''}${d.tw?'<a href="'+d.tw+'" target="_blank"><i class="fa-brands fa-twitter"></i></a>':''}${d.ig?'<a href="'+d.ig+'" target="_blank"><i class="fa-brands fa-instagram"></i></a>':''}</div>
+    <div class="btn-group"><a href="#contact" class="btn">Hire Me</a><a href="#contact" class="btn outline">Contact</a></div>
+  </div>
+  <div class="hero-img">${d.img?'<img src="'+d.img+'" alt="'+d.n+'">':'<div style="width:300px;height:300px;background:var(--second-dark-clr);border-radius:50%;margin:auto;border:3px solid var(--global-clr);display:flex;align-items:center;justify-content:center;font-size:4rem;color:var(--global-clr)"><i class="fa-solid fa-user"></i></div>'}</div>
+</section>
+<section class="stats">${d.stats.map(s=>'<div class="stat-item"><h2>'+s.n+'</h2><span>'+s.l+'</span></div>').join('')}</section>
+<section id="about" class="about">
+  <div class="about-img-container"><img src="${d.img||'https://via.placeholder.com/200'}" alt="${d.n}"></div>
+  <div class="about-text"><h2>About Me</h2><h3>${d.t}</h3><p>${d.a||'Dedicated to continuous learning.'}</p>${d.cv?'<a href="'+d.cv+'" class="btn" download>Resume</a>':''}</div>
+</section>
+<section id="services" class="services"><h2>My Services</h2><div class="services-grid">${d.services.map((s,i)=>'<div class="service-card"><i class="fa-solid fa-'+['code','paintbrush','bullhorn','laptop','chart-line','cogs'][i%6]+'"></i><h3>'+s.t+'</h3><p>'+s.d+'</p></div>').join('')}</div></section>
+<section id="portfolio" class="services"><h2>Latest Projects</h2><div class="portfolio-grid">${d.projects.map(p=>'<div class="portfolio-card"><img src="'+(p.i||'https://via.placeholder.com/300x200')+'" alt="'+p.t+'"><div class="portfolio-info"><h3>'+p.t+'</h3>'+(p.l?'<a href="'+p.l+'" target="_blank" style="color:var(--global-clr)">View Project →</a>':'')+'</div></div>').join('')}</div></section>
+<section id="contact" class="contact"><h2>Contact Me!</h2><p>I'm open to new opportunities.</p><a href="mailto:contact@example.com" class="btn">Send Message</a></section>
+<footer>© 2026 ${d.n} | Built with A.Y for Technology</footer>
+<script>
+window.addEventListener('scroll',()=>{const h=document.querySelector('header');h.style.background=window.scrollY>50?'rgba(8,29,44,0.98)':'transparent'});
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();document.querySelector(a.getAttribute('href')).click()}));
+<\/script></body></html>`;
+
+    const blob = new Blob([html], {type: 'text/html'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = `${d.n.replace(/\s/g,'-')}-portfolio.html`;
+    document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+  }
+</script>
+</body>
+</html>

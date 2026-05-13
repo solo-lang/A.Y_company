@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A.Y Social Hub + QR | بطاقتك الذكية الاحترافية</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    :root {
+      --dark-clr: #081d2c; --second-dark-clr: #112e42; --text-clr: #f1f5f9;
+      --light-text-clr: #c9d9e8; --global-clr: #0fbbff; --btn-clr: #ff499e;
+      --gold-clr: #d4af37; --transition: 0.3s ease;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+    body { background: var(--dark-clr); color: var(--text-clr); line-height: 1.6; overflow-x: hidden; }
+    
+    .b-header { padding: 1.5rem 5%; display: flex; justify-content: space-between; align-items: center; background: rgba(17,46,66,0.95); border-bottom: 2px solid var(--global-clr); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+    .b-logo { font-size: 1.8rem; font-weight: 700; color: var(--text-clr); } .b-logo span { color: var(--global-clr); }
+    .b-nav a { color: var(--light-text-clr); margin-left: 1.5rem; text-decoration: none; transition: var(--transition); font-weight: 500; } .b-nav a:hover { color: var(--global-clr); }
+
+    .b-hero { text-align: center; padding: 6rem 5% 4rem; background: linear-gradient(180deg, var(--dark-clr) 0%, var(--second-dark-clr) 100%); position: relative; overflow: hidden; }
+    .b-hero::before { content: ''; position: absolute; top: -50%; right: -20%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(15,187,255,0.1) 0%, transparent 70%); border-radius: 50%; }
+    .b-hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 1rem; position: relative; } .b-hero h1 span { color: var(--global-clr); }
+    .b-hero p { font-size: 1.2rem; color: var(--light-text-clr); max-width: 700px; margin: 0 auto 2rem; position: relative; }
+    .b-btn { background: linear-gradient(135deg, var(--global-clr), #0a8bc4); color: var(--dark-clr); padding: 14px 32px; border-radius: 8px; font-weight: 700; text-decoration: none; display: inline-block; transition: var(--transition); box-shadow: 0 4px 15px rgba(15,187,255,0.4); border: none; cursor: pointer; }
+    .b-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(15,187,255,0.6); }
+
+    .b-features { padding: 4rem 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; }
+    .b-card { background: var(--second-dark-clr); padding: 2rem; border-radius: 12px; border: 1px solid rgba(15,187,255,0.2); text-align: center; transition: var(--transition); position: relative; overflow: hidden; }
+    .b-card::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(15,187,255,0.1), transparent); transition: 0.5s; }
+    .b-card:hover::before { left: 100%; }
+    .b-card:hover { transform: translateY(-8px); border-color: var(--global-clr); box-shadow: 0 10px 30px rgba(15,187,255,0.2); }
+    .b-card i { font-size: 2.8rem; color: var(--global-clr); margin-bottom: 1rem; } .b-card h3 { margin-bottom: 0.8rem; font-size: 1.3rem; } .b-card p { color: var(--light-text-clr); font-size: 0.95rem; line-height: 1.7; }
+
+    .b-form { padding: 4rem 5%; max-width: 900px; margin: 0 auto; }
+    .form-section { background: var(--second-dark-clr); padding: 2rem; border-radius: 16px; margin-bottom: 2rem; border: 1px solid rgba(15,187,255,0.2); box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
+    .form-section h3 { color: var(--global-clr); margin-bottom: 1.5rem; border-bottom: 2px dashed rgba(15,187,255,0.3); padding-bottom: 0.8rem; font-size: 1.4rem; display: flex; align-items: center; gap: 10px; }
+    .input-group { margin-bottom: 1.2rem; } label { display: block; margin-bottom: 0.6rem; color: var(--light-text-clr); font-weight: 600; font-size: 0.95rem; }
+    input, textarea { width: 100%; padding: 14px; background: var(--dark-clr); border: 1px solid rgba(255,255,255,0.1); color: var(--text-clr); border-radius: 10px; font-size: 1rem; transition: var(--transition); }
+    input:focus, textarea:focus { border-color: var(--global-clr); outline: none; box-shadow: 0 0 0 3px rgba(15,187,255,0.15); background: rgba(8,29,44,0.8); }
+    .input-hint { font-size: 0.85rem; color: var(--light-text-clr); margin-top: 0.4rem; opacity: 0.8; }
+    
+    .social-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+    
+    .generate-btn { width: 100%; padding: 18px; background: linear-gradient(135deg, var(--global-clr), #0a8bc4); color: var(--dark-clr); border: none; border-radius: 12px; font-size: 1.4rem; font-weight: 700; cursor: pointer; margin: 2rem 0; transition: var(--transition); box-shadow: 0 6px 20px rgba(15,187,255,0.4); }
+    .generate-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(15,187,255,0.6); }
+    
+    footer { text-align: center; padding: 2.5rem; color: var(--light-text-clr); font-size: 0.95rem; border-top: 1px solid var(--second-dark-clr); margin-top: 3rem; background: rgba(17,46,66,0.5); } footer strong { color: var(--global-clr); }
+    @media(max-width: 768px) {
+      .b-header { flex-direction: column; gap: 1rem; text-align: center; }
+      .b-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+      .b-nav a { margin: 0 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="b-header">
+  <div class="b-logo">🔗 A.Y <span>Social Hub</span></div>
+  <nav class="b-nav">
+    <a href="#features">المميزات</a>
+    <a href="#builder">ابدأ الآن</a>
+    <a href="#how">كيف يعمل</a>
+  </nav>
+</header>
+
+<section class="b-hero">
+  <h1>بطاقتك الذكية الاحترافية <br><span>مع QR Code فاخر</span></h1>
+  <p>أنشئ صفحة روابط احترافية وبطاقة عمل ذكية قابلة للتحميل كصورة. شارك وجودك الرقمي بلمسة واحدة.</p>
+  <a href="#builder" class="b-btn"> أنشئ بطاقتك الآن</a>
+</section>
+
+<section class="b-features" id="features">
+  <div class="b-card"><i class="fa-solid fa-qrcode"></i><h3>QR Code فاخر</h3><p>صمم بطاقة عمل رقمية أنيقة مع QR Code مدمج يعمل 100% بدون إنترنت.</p></div>
+  <div class="b-card"><i class="fa-solid fa-link"></i><h3>روابط موحدة</h3><p>اجمع كل روابطك الاجتماعية والمهنية في صفحة واحدة احترافية بتصميم عصري.</p></div>
+  <div class="b-card"><i class="fa-solid fa-mobile-screen"></i><h3>متجاوب تماماً</h3><p>يعمل بكفاءة على جميع الأجهزة: موبايل، تابلت، وكمبيوتر بأفضل تجربة مستخدم.</p></div>
+  <div class="b-card"><i class="fa-solid fa-bolt"></i><h3>إنشاء فوري</h3><p>احصل على صفحتك وبطاقتك في ثوانٍ. كل المعالجة تتم محلياً على جهازك.</p></div>
+</section>
+
+<section class="b-form" id="builder">
+  <div class="form-section">
+    <h3>👤 المعلومات الشخصية</h3>
+    <div class="input-group"><label>الاسم الكامل *</label><input type="text" id="fullName" placeholder="مثال: Ahmed Omar" required></div>
+    <div class="input-group"><label>المسمى الوظيفي *</label><input type="text" id="jobTitle" placeholder="مثال: Full Stack Developer" required></div>
+    <div class="input-group"><label>نبذة مختصرة</label><textarea id="bio" placeholder="اكتب 1-2 سطر عنك..." maxlength="150"></textarea><div class="input-hint">حد أقصى 150 حرف</div></div>
+    <div class="input-group"><label>رابط الصورة الشخصية</label><input type="url" id="profileImg" placeholder="https://example.com/photo.png"><div class="input-hint">اتركه فاضياً لاستخدام أيقونة افتراضية</div></div>
+  </div>
+
+  <div class="form-section">
+    <h3>📱 روابط التواصل الاجتماعي</h3>
+    <div class="social-grid">
+      <div class="input-group"><label><i class="fa-brands fa-whatsapp"></i> واتساب</label><input type="text" id="whatsapp" placeholder="201000000000"></div>
+      <div class="input-group"><label><i class="fa-brands fa-telegram"></i> تيليجرام</label><input type="text" id="telegram" placeholder="@username"></div>
+      <div class="input-group"><label><i class="fa-brands fa-linkedin"></i> LinkedIn</label><input type="url" id="linkedin" placeholder="https://linkedin.com/in/you"></div>
+      <div class="input-group"><label><i class="fa-brands fa-github"></i> GitHub</label><input type="url" id="github" placeholder="https://github.com/you"></div>
+      <div class="input-group"><label><i class="fa-brands fa-instagram"></i> Instagram</label><input type="url" id="instagram" placeholder="https://instagram.com/you"></div>
+      <div class="input-group"><label><i class="fa-brands fa-twitter"></i> Twitter/X</label><input type="url" id="twitter" placeholder="https://twitter.com/you"></div>      <div class="input-group"><label><i class="fa-brands fa-facebook"></i> Facebook</label><input type="url" id="facebook" placeholder="https://facebook.com/you"></div>
+      <div class="input-group"><label><i class="fa-solid fa-globe"></i> الموقع الإلكتروني</label><input type="url" id="website" placeholder="https://yourwebsite.com"></div>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <h3>📧 معلومات التواصل</h3>
+    <div class="input-group"><label><i class="fa-solid fa-envelope"></i> البريد الإلكتروني</label><input type="email" id="email" placeholder="you@example.com"></div>
+    <div class="input-group"><label><i class="fa-solid fa-phone"></i> رقم الهاتف</label><input type="tel" id="phone" placeholder="+20 100 000 0000"></div>
+    <div class="input-group"><label><i class="fa-solid fa-location-dot"></i> الموقع</label><input type="text" id="location" placeholder="Cairo, Egypt"></div>
+  </div>
+
+  <button class="generate-btn" id="generateBtn" onclick="generateSocialHub()">✨ إنشاء الصفحة والبطاقة الذكية</button>
+</section>
+
+<section class="b-features" id="how" style="margin-top: 2rem;">
+  <h2 style="text-align: center; font-size: 2.2rem; margin-bottom: 3rem; color: var(--global-clr);"> كيف يعمل؟</h2>
+  <div class="b-card"><div style="font-size: 3rem; margin-bottom: 1rem;">1️</div><h3>أدخل بياناتك</h3><p>املأ النموذج بمعلوماتك وروابطك الاجتماعية.</p></div>
+  <div class="b-card"><div style="font-size: 3rem; margin-bottom: 1rem;">2️⃣</div><h3>حمّل صفحتك</h3><p>احصل على ملف HTML جاهز لصفحة الروابط الاحترافية.</p></div>
+  <div class="b-card"><div style="font-size: 3rem; margin-bottom: 1rem;">3️⃣</div><h3>شارك بطاقتك</h3><p>حمّل البطاقة الذكية كصورة وشاركها مع العملاء.</p></div>
+</section>
+
+<footer>
+  <div style="font-size: 1.2rem; margin-bottom: 0.5rem;">🚀 A.Y for Technology</div>
+  <div style="font-size: 0.9rem;">المدير التنفيذي: <strong>عبدالله عمران</strong></div>
+  <div style="margin-top: 1rem; opacity: 0.7; font-size: 0.85rem;">© 2026 جميع الحقوق محفوظة | منصة آمنة تعمل محلياً 100%</div>
+</footer>
+
+<script>
+  async function generateSocialHub() {
+    const btn = document.getElementById('generateBtn');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '⏳ جاري المعالجة...';
+    btn.disabled = true;
+
+    try {
+      const d = {
+        name: document.getElementById('fullName').value.trim(),
+        title: document.getElementById('jobTitle').value.trim(),
+        bio: document.getElementById('bio').value.trim(),
+        img: document.getElementById('profileImg').value.trim(),
+        whatsapp: document.getElementById('whatsapp').value.trim(),
+        telegram: document.getElementById('telegram').value.trim(),
+        linkedin: document.getElementById('linkedin').value.trim(),
+        github: document.getElementById('github').value.trim(),
+        instagram: document.getElementById('instagram').value.trim(),
+        twitter: document.getElementById('twitter').value.trim(),
+        facebook: document.getElementById('facebook').value.trim(),
+        website: document.getElementById('website').value.trim(),
+        email: document.getElementById('email').value.trim(),        phone: document.getElementById('phone').value.trim(),
+        location: document.getElementById('location').value.trim()
+      };
+
+      if(!d.name || !d.title) throw new Error('الاسم والمسمى الوظيفي مطلوبان *');
+
+      // بناء بيانات vCard
+      let vcard = `BEGIN:VCARD\nVERSION:3.0\nFN:${d.name}\nTITLE:${d.title}\n`;
+      if(d.bio) vcard += `NOTE:${d.bio}\n`;
+      if(d.phone) vcard += `TEL:${d.phone}\n`;
+      if(d.email) vcard += `EMAIL:${d.email}\n`;
+      if(d.whatsapp) vcard += `URL:https://wa.me/${d.whatsapp}\n`;
+      if(d.linkedin) vcard += `URL:${d.linkedin}\n`;
+      if(d.github) vcard += `URL:${d.github}\n`;
+      if(d.website) vcard += `URL:${d.website}\n`;
+      vcard += `END:VCARD`;
+
+      // توليد QR Code كـ Data URI (يعمل Offline 100%)
+      const qrDataUrl = await new Promise((resolve, reject) => {
+        const tempDiv = document.createElement('div');
+        tempDiv.style.display = 'none';
+        document.body.appendChild(tempDiv);
+        new QRCode(tempDiv, {
+          text: vcard,
+          width: 200,
+          height: 200,
+          colorDark: "#081d2c",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.H
+        });
+        setTimeout(() => {
+          const canvas = tempDiv.querySelector('canvas');
+          if(canvas) resolve(canvas.toDataURL('image/png'));
+          else reject(new Error('فشل توليد QR Code'));
+          document.body.removeChild(tempDiv);
+        }, 500);
+      });
+
+      // بناء الروابط والمعلومات
+      const socialLinks = [];
+      const socialMap = [
+        { key: 'whatsapp', icon: 'fa-whatsapp', url: `https://wa.me/${d.whatsapp}`, label: 'WhatsApp', color: '#25D366' },
+        { key: 'telegram', icon: 'fa-telegram', url: `https://t.me/${d.telegram.replace('@','')}`, label: 'Telegram', color: '#0088cc' },
+        { key: 'linkedin', icon: 'fa-linkedin', url: d.linkedin, label: 'LinkedIn', color: '#0077b5' },
+        { key: 'github', icon: 'fa-github', url: d.github, label: 'GitHub', color: '#333' },
+        { key: 'instagram', icon: 'fa-instagram', url: d.instagram, label: 'Instagram', color: '#E4405F' },
+        { key: 'twitter', icon: 'fa-twitter', url: d.twitter, label: 'Twitter', color: '#1DA1F2' },
+        { key: 'facebook', icon: 'fa-facebook', url: d.facebook, label: 'Facebook', color: '#1877F2' },
+        { key: 'website', icon: 'fa-globe', url: d.website, label: 'Website', color: '#0fbbff' }
+      ];      socialMap.forEach(s => { if(d[s.key]) socialLinks.push(`<a href="${s.url}" target="_blank" rel="noopener" class="social-link" style="border-color:${s.color}30;background:${s.color}10"><i class="fa-brands ${s.icon}" style="color:${s.color}"></i><span>${s.label}</span></a>`); });
+
+      const contactInfo = [];
+      if(d.email) contactInfo.push(`<div class="contact-item"><i class="fa-solid fa-envelope"></i><span>${d.email}</span></div>`);
+      if(d.phone) contactInfo.push(`<div class="contact-item"><i class="fa-solid fa-phone"></i><span>${d.phone}</span></div>`);
+      if(d.location) contactInfo.push(`<div class="contact-item"><i class="fa-solid fa-location-dot"></i><span>${d.location}</span></div>`);
+
+      const safeName = d.name.replace(/'/g, "\\'").replace(/\s+/g, '-');
+      const safeTitle = d.title.replace(/'/g, "\\'");
+      const safeBio = d.bio ? d.bio.replace(/'/g, "\\'") : '';
+
+      const html = `<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${safeName} | ${safeTitle}</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"><\/script>
+<style>
+:root{--dark:#081d2c;--second:#112e42;--text:#f1f5f9;--light:#c9d9e8;--accent:#0fbbff;--pink:#ff499e}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif}
+body{background:linear-gradient(135deg,var(--dark) 0%,var(--second) 100%);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:2rem 1rem}
+.container{max-width:600px;width:100%;margin:0 auto}
+.profile-card{background:rgba(17,46,66,0.85);backdrop-filter:blur(15px);border-radius:24px;padding:2.5rem;text-align:center;border:2px solid rgba(15,187,255,0.3);box-shadow:0 20px 60px rgba(0,0,0,0.4);position:relative;overflow:hidden}
+.profile-img-container{width:130px;height:130px;margin:0 auto 1.5rem;border-radius:50%;padding:3px;background:linear-gradient(135deg,var(--accent),var(--pink));box-shadow:0 10px 25px rgba(15,187,255,0.3)}
+.profile-img{width:100%;height:100%;border-radius:50%;object-fit:cover;border:4px solid var(--second);background:var(--second)}
+.profile-name{font-size:1.9rem;font-weight:700;margin-bottom:0.4rem;background:linear-gradient(135deg,var(--text),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.profile-title{font-size:1rem;color:var(--accent);margin-bottom:1rem;font-weight:600}
+.profile-bio{color:var(--light);font-size:0.9rem;line-height:1.6;margin-bottom:1.8rem}
+.social-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.8rem;margin-bottom:1.8rem}
+.social-link{display:flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.9rem;border-radius:10px;text-decoration:none;color:var(--text);font-weight:600;transition:all 0.3s ease;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05)}
+.social-link:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,0.3);border-color:var(--accent)}
+.social-link i{font-size:1.2rem}
+.contact-section{margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,0.1)}
+.contact-section h3{color:var(--accent);margin-bottom:0.8rem;font-size:1.1rem}
+.contact-item{display:flex;align-items:center;justify-content:center;gap:0.6rem;margin-bottom:0.6rem;color:var(--light);font-size:0.9rem}
+.contact-item i{color:var(--accent);width:18px}
+.qr-section{margin-top:1.8rem;text-align:center}
+.qr-card{background:var(--text);padding:1.2rem;border-radius:14px;display:inline-block;box-shadow:0 8px 25px rgba(0,0,0,0.3)}
+.qr-img{width:180px;height:180px;border-radius:8px;display:block}
+.qr-label{margin-top:0.8rem;color:var(--light);font-size:0.85rem}
+.download-btn{margin-top:1.2rem;padding:0.9rem 1.8rem;background:linear-gradient(135deg,var(--accent),#0a8bc4);color:var(--dark);border:none;border-radius:8px;font-weight:700;cursor:pointer;transition:all 0.3s ease;font-size:0.95rem}
+.download-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(15,187,255,0.4)}
+footer{margin-top:2.5rem;text-align:center;color:var(--light);font-size:0.8rem;opacity:0.8}
+footer strong{color:var(--accent)}
+@media(max-width:480px){.profile-card{padding:1.6rem}.profile-name{font-size:1.5rem}.social-links{grid-template-columns:1fr}}
+</style></head><body>
+<div class="container">
+  <div class="profile-card" id="businessCard">
+    <div class="profile-img-container">
+      ${d.img ? `<img src="${d.img}" alt="${safeName}" class="profile-img">` : '<div class="profile-img" style="display:flex;align-items:center;justify-content:center;font-size:3rem;color:var(--accent)"><i class="fa-solid fa-user"></i></div>'}
+    </div>
+    <h1 class="profile-name">${safeName}</h1>
+    <div class="profile-title">${safeTitle}</div>    ${safeBio ? `<p class="profile-bio">${safeBio}</p>` : ''}
+    
+    <div class="social-links">${socialLinks.join('')}</div>
+    ${contactInfo.length ? `<div class="contact-section"><h3>📞 معلومات التواصل</h3>${contactInfo.join('')}</div>` : ''}
+
+    <div class="qr-section">
+      <div class="qr-card" id="qrCard">
+        <img src="${qrDataUrl}" alt="QR Code" class="qr-img">
+        <div class="qr-label">امسح الكود لحفظ جهة الاتصال</div>
+      </div>
+      <br>
+      <button class="download-btn" id="dlBtn"><i class="fa-solid fa-download"></i> تحميل البطاقة كصورة</button>
+    </div>
+  </div>
+  <footer><div style="font-size:1rem;margin-bottom:0.2rem"> A.Y for Technology</div><div>المدير التنفيذي: <strong>عبدالله عمران</strong></div></footer>
+</div>
+<script>
+document.getElementById('dlBtn').addEventListener('click', function() {
+  const card = document.getElementById('businessCard');
+  if(typeof html2canvas !== 'undefined') {
+    html2canvas(card, { scale: 2, backgroundColor: null, useCORS: true }).then(canvas => {
+      const link = document.createElement('a');
+      link.download = '${safeName}-business-card.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }).catch(() => alert('حدث خطأ أثناء التحميل. تأكد من اتصالك بالإنترنت مرة واحدة لتحميل المكتبة.'));
+  } else {
+    alert('مكتبة التحميل غير متوفرة. يرجى فتح الملف مع اتصال إنترنت مرة واحدة.');
+  }
+});
+<\/script></body></html>`;
+
+      const blob = new Blob([html], {type: 'text/html'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${safeName}-social-hub.html`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      
+      alert('✅ تم الإنشاء بنجاح!\nالملف المُنزّل يحتوي على:\n🔗 روابط تعمل فوراً\n📲 QR Code مدمج (يعمل Offline)\n💾 زر تحميل البطاقة كصورة');
+    } catch (err) {
+      alert('❌ خطأ: ' + err.message);
+    } finally {
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    }
+  }</script>
+</body>
+</html>

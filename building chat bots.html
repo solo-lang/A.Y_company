@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A.Y Bot Builder | Premium Chatbot Creator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --surface: #ffffff;
+      --surface-alt: #fafbfc;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --accent: #d4af37;
+      --accent-hover: #b8962e;
+      --accent-soft: rgba(212, 175, 55, 0.12);
+      --border: #e2e8f0;
+      --input-bg: #f8f9fa;
+      --input-focus: rgba(212, 175, 55, 0.15);
+      --shadow: 0 4px 16px rgba(0,0,0,0.04);
+      --shadow-hover: 0 8px 24px rgba(0,0,0,0.08);
+      --radius: 16px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    [data-theme="dark"] {
+      --bg: #0a0c10;
+      --surface: #12141a;
+      --surface-alt: #161920;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --accent: #e6c550;
+      --accent-hover: #d4b343;
+      --accent-soft: rgba(230, 197, 80, 0.15);
+      --border: #1e232d;
+      --input-bg: #191d25;
+      --input-focus: rgba(230, 197, 80, 0.15);
+      --shadow: 0 4px 16px rgba(0,0,0,0.25);
+      --shadow-hover: 0 8px 24px rgba(0,0,0,0.35);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Cairo', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: var(--transition);
+    }    .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+    
+    /* Header */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+      position: sticky; top: 0; z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+    .nav { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 20px; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 8px; letter-spacing: -0.5px; }
+    .logo span { color: var(--accent); }
+    .controls { display: flex; gap: 12px; align-items: center; }
+    .icon-btn {
+      width: 38px; height: 38px;
+      border-radius: 10px; border: 1px solid var(--border);
+      background: var(--surface-alt); color: var(--text-muted);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: var(--transition); font-size: 16px;
+    }
+    .icon-btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+    /* Hero */
+    .hero { text-align: center; padding: 90px 0 70px; background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%); }
+    .hero h1 { font-size: clamp(30px, 5.5vw, 46px); font-weight: 800; margin-bottom: 18px; line-height: 1.25; letter-spacing: -0.5px; }
+    .hero h1 span { color: var(--accent); position: relative; }
+    .hero h1 span::after { content: ''; position: absolute; bottom: 4px; left: 0; width: 100%; height: 6px; background: var(--accent-soft); border-radius: 4px; z-index: -1; }
+    .hero p { font-size: 18px; color: var(--text-muted); max-width: 640px; margin: 0 auto 34px; font-weight: 400; }
+    .hero-btn {
+      background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+      color: #0f172a; padding: 15px 32px; border: none; border-radius: 12px;
+      font-size: 16px; font-weight: 700; cursor: pointer; transition: var(--transition);
+      box-shadow: 0 4px 14px rgba(212,175,55,0.25);
+    }
+    .hero-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(212,175,55,0.35); }
+
+    /* Features */
+    .features { padding: 70px 0; }
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+    .feature-card {
+      background: var(--surface); padding: 28px; border-radius: var(--radius);
+      border: 1px solid var(--border); box-shadow: var(--shadow); transition: var(--transition);
+    }
+    .feature-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+    .feature-icon { font-size: 34px; margin-bottom: 14px; }
+    .feature-title { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+    .feature-desc { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
+
+    /* Builder */    .builder { padding: 70px 0; background: var(--surface-alt); }
+    .section-title { text-align: center; font-size: 30px; font-weight: 800; margin-bottom: 45px; letter-spacing: -0.5px; }
+    .builder-card {
+      background: var(--surface); border-radius: 20px; padding: 36px;
+      box-shadow: var(--shadow); max-width: 840px; margin: 0 auto; border: 1px solid var(--border);
+    }
+    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 22px; margin-bottom: 28px; }
+    .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 14px; color: var(--text); }
+    
+    /* ✅ إصلاح خانات السؤال والإجابة + فخامة */
+    .form-group input, .qa-controls input {
+      width: 100%; padding: 15px 18px;
+      border: 1px solid var(--border); border-radius: 12px;
+      background: var(--input-bg); color: var(--text);
+      font-size: 15px; transition: var(--transition);
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.03);
+    }
+    .form-group input:focus, .qa-controls input:focus {
+      outline: none; border-color: var(--accent);
+      box-shadow: 0 0 0 4px var(--input-focus), inset 0 1px 2px rgba(0,0,0,0.03);
+      background: var(--surface);
+    }
+    .form-group input::placeholder, .qa-controls input::placeholder { color: var(--text-muted); opacity: 0.8; }
+
+    .qa-panel { background: var(--surface-alt); padding: 22px; border-radius: 14px; margin-bottom: 24px; border: 1px dashed var(--border); }
+    .qa-panel-title { font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+    .qa-controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px; }
+    @media (min-width: 640px) { .qa-controls { flex-direction: row; align-items: center; } }
+    .qa-controls input { flex: 1; }
+    .qa-btn {
+      padding: 15px 22px; border: none; border-radius: 12px;
+      font-weight: 600; cursor: pointer; transition: var(--transition);
+      background: var(--accent); color: #0f172a; font-size: 15px;
+      box-shadow: 0 4px 10px rgba(212,175,55,0.2);
+    }
+    .qa-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 14px rgba(212,175,55,0.3); }
+
+    .table-wrapper { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); background: var(--surface); }
+    table { width: 100%; border-collapse: collapse; min-width: 520px; }
+    th, td { padding: 16px; text-align: right; border-bottom: 1px solid var(--border); font-size: 14px; }
+    th { background: var(--surface-alt); font-weight: 600; color: var(--text-muted); letter-spacing: 0.3px; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--accent-soft); }
+    .actions { display: flex; gap: 8px; justify-content: flex-end; }
+    .btn-sm { padding: 8px 14px; font-size: 12px; border-radius: 8px; cursor: pointer; border: none; transition: var(--transition); font-weight: 500; }
+    .btn-edit { background: #3b82f6; color: white; }
+    .btn-edit:hover { background: #2563eb; }
+    .btn-del { background: #ef4444; color: white; }
+    .btn-del:hover { background: #dc2626; }
+    .generate-btn {
+      width: 100%; padding: 17px; background: linear-gradient(135deg, #10b981, #059669);
+      color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: 700;
+      cursor: pointer; margin-top: 24px; transition: var(--transition);
+      box-shadow: 0 4px 14px rgba(16,185,129,0.25);
+    }
+    .generate-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(16,185,129,0.35); }
+
+    /* Steps */
+    .steps { padding: 70px 0; text-align: center; }
+    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 32px; margin-top: 42px; }
+    .step-num { width: 42px; height: 42px; background: var(--accent); color: #0f172a; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; margin: 0 auto 14px; font-size: 16px; }
+    .step-title { font-weight: 700; margin-bottom: 8px; font-size: 16px; }
+    .step-desc { font-size: 14px; color: var(--text-muted); }
+
+    /* Footer */
+    footer { background: #0a0c10; color: #cbd5e1; padding: 50px 0 24px; margin-top: 70px; }
+    .footer-content { display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center; }
+    .footer-logo { font-size: 22px; font-weight: 800; color: #ffffff; letter-spacing: -0.5px; }
+    .footer-divider { width: 50px; height: 3px; background: var(--accent); border-radius: 2px; margin: 6px 0; }
+    .footer-branding { font-size: 13px; color: #94a3b8; line-height: 1.65; }
+    .footer-branding strong { color: var(--accent); }
+    .footer-copy { font-size: 12px; color: #64748b; margin-top: 6px; }
+
+    /* Utility */
+    @media (max-width: 640px) {
+      .hero { padding: 60px 0 50px; }
+      .builder-card { padding: 22px; }
+      .form-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <div class="logo">🤖 A.Y <span>Bot Builder</span></div>
+    <div class="controls">
+      <button class="icon-btn" id="themeToggle" title="تبديل الثيم">🌙</button>
+      <button class="icon-btn" id="langToggle" title="تبديل اللغة">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container">
+      <h1 data-ar="اصنع بوتك الذكي <br>بلمسة فخامة" data-en="Craft Your Smart Bot <br>With Premium Touch"></h1>
+      <p data-ar="منصة احترافية لإنشاء بوتات دردشة مخصصة، سريعة، وآمنة. لا تحتاج لخبرة برمجية، فقط أدخل بياناتك وحمّل الملف الجاهز." data-en="A professional platform to create custom, fast, and secure chatbots. No coding required. Just enter your data and download the ready-to-use file."></p>
+      <button class="hero-btn" onclick="document.getElementById('builder').scrollIntoView({behavior:'smooth'})" data-ar="ابدأ الإنشاء الآن" data-en="Start Building Now"></button>    </div>
+  </section>
+
+  <section class="features">
+    <div class="container features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-title" data-ar="فوري وسريع" data-en="Instant & Fast"></div>
+        <div class="feature-desc" data-ar="أنشئ بوتك في أقل من دقيقة واحصل على ملف HTML جاهز للاستخدام المباشر." data-en="Create your bot in under a minute and get a ready-to-use HTML file."></div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <div class="feature-title" data-ar="خصوصية تامة" data-en="100% Private"></div>
+        <div class="feature-desc" data-ar="جميع البيانات تُعالج محلياً على جهازك. لا يتم إرسال أي معلومات إلى خوادم خارجية." data-en="All data is processed locally on your device. No data is sent to external servers."></div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <div class="feature-title" data-ar="متجاوب وعصري" data-en="Responsive & Modern"></div>
+        <div class="feature-desc" data-ar="واجهة دردشة احترافية تعمل بسلاسة على جميع الأجهزة: موبايل، تابلت، وكمبيوتر." data-en="Professional chat interface that works seamlessly on all devices: mobile, tablet, and desktop."></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="builder" id="builder">
+    <div class="container">
+      <h2 class="section-title" data-ar="🛠️ لوحة الإنشاء" data-en="🛠️ Builder Panel"></h2>
+      <div class="builder-card">
+        <div class="form-grid">
+          <div class="form-group">
+            <label data-ar="اسم البوت" data-en="Bot Name"></label>
+            <input type="text" id="botName" placeholder="مثال: بوت خدمة العملاء">
+          </div>
+          <div class="form-group">
+            <label data-ar="رسالة الترحيب" data-en="Welcome Message"></label>
+            <input type="text" id="welcomeMsg" placeholder="أهلاً بك! كيف أقدر أساعدك اليوم؟">
+          </div>
+        </div>
+
+        <div class="qa-panel">
+          <div class="qa-panel-title" data-ar="📌 إدارة الأسئلة والردود (غير محدود)" data-en="📌 Manage Questions & Replies (Unlimited)"></div>
+          <div class="qa-controls">
+            <input type="text" id="newQ" placeholder="السؤال المتوقع من العميل" data-placeholder-en="Expected customer question">
+            <input type="text" id="newA" placeholder="الرد التلقائي" data-placeholder-en="Automatic reply">
+            <button class="qa-btn" id="addBtn" data-ar="➕ إضافة" data-en="➕ Add"></button>
+          </div>
+
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>                  <th>#</th>
+                  <th data-ar="السؤال" data-en="Question"></th>
+                  <th data-ar="الرد" data-en="Reply"></th>
+                  <th style="width:130px" data-ar="إجراءات" data-en="Actions"></th>
+                </tr>
+              </thead>
+              <tbody id="qaTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <button class="generate-btn" onclick="generateBot()" data-ar="⬇️ إنشاء وتحميل ملف البوت (HTML)" data-en="⬇️ Generate & Download Bot File (HTML)"></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="steps">
+    <div class="container">
+      <h2 class="section-title" data-ar="📖 كيف يعمل؟" data-en="📖 How it Works?"></h2>
+      <div class="steps-grid">
+        <div>
+          <div class="step-num">1</div>
+          <div class="step-title" data-ar="أدخل البيانات" data-en="Enter Data"></div>
+          <div class="step-desc" data-ar="اسم البوت، رسالة الترحيب، والأسئلة والردود المتوقعة." data-en="Bot name, welcome message, and expected Q&A pairs."></div>
+        </div>
+        <div>
+          <div class="step-num">2</div>
+          <div class="step-title" data-ar="تحكم وعدّل" data-en="Edit & Manage"></div>
+          <div class="step-desc" data-ar="أضف، عدّل، أو احذف أي سؤال من الجدول بكل سهولة." data-en="Add, edit, or delete any question directly from the table."></div>
+        </div>
+        <div>
+          <div class="step-num">3</div>
+          <div class="step-title" data-ar="حمّل واستخدم" data-en="Download & Use"></div>
+          <div class="step-desc" data-ar="اضغط زر التحميل، وارفع الملف على موقعك أو شاركه مباشرة." data-en="Click download, upload to your site, or share directly."></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container footer-content">
+    <div class="footer-logo">A.Y for Technology</div>
+    <div class="footer-divider"></div>
+    <div class="footer-branding">
+      <span data-ar="منصة متطورة لإنشاء حلول ذكية محلية" data-en="Advanced platform for building local smart solutions"></span><br>
+      <strong data-ar="المدير التنفيذي" data-en="CEO">المدير التنفيذي</strong>: <strong>عبدالله عمران</strong>
+    </div>
+    <div class="footer-copy" data-ar="© 2026 جميع الحقوق محفوظة. منصة آمنة تعمل محلياً 100%." data-en="© 2026 All rights reserved. 100% local & secure platform."></div>
+  </div></footer>
+
+<script>
+  // Theme Toggle
+  const themeToggle = document.getElementById('themeToggle');
+  let isDark = false;
+  themeToggle.addEventListener('click', () => {
+    isDark = !isDark;
+    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+    themeToggle.textContent = isDark ? '☀️' : '🌙';
+  });
+
+  // Language Toggle
+  const langToggle = document.getElementById('langToggle');
+let isArabic = true;
+
+function applyLanguage() {
+    document.documentElement.lang = isArabic ? 'ar' : 'en';
+    document.documentElement.dir = isArabic ? 'rtl' : 'ltr';
+    langToggle.textContent = isArabic ? 'EN' : 'عربي';
+    
+    document.querySelectorAll('[data-ar]').forEach(el => el.innerHTML = isArabic ? el.dataset.ar : el.dataset.en);
+    document.querySelectorAll('[data-placeholder-en]').forEach(el => {
+        el.placeholder = isArabic ? (el.dataset.placeholderAr || el.placeholder) : (el.dataset.placeholderEn || '');
+    });
+}
+
+// تشغيل اللغة العربية أول ما الموقع يفتح
+window.addEventListener('DOMContentLoaded', applyLanguage);
+
+// تبديل اللغة عند الضغط
+langToggle.addEventListener('click', () => {
+    isArabic = !isArabic;
+    applyLanguage();
+});
+
+  // QA Manager
+  let qaList = [];
+  let editIndex = -1;
+
+  function addOrUpdateQA() {
+    const q = document.getElementById('newQ').value.trim();
+    const a = document.getElementById('newA').value.trim();
+    if (!q || !a) return alert(isArabic ? 'يرجى ملء السؤال والرد' : 'Please fill both question and reply');
+
+    if (editIndex === -1) {
+      qaList.push({ q, a });
+    } else {
+      qaList[editIndex] = { q, a };
+      editIndex = -1;
+      document.getElementById('addBtn').textContent = isArabic ? '➕ إضافة' : '➕ Add';
+      document.getElementById('addBtn').style.background = 'var(--accent)';
+      document.getElementById('addBtn').style.color = '#0f172a';
+    }
+    document.getElementById('newQ').value = '';
+    document.getElementById('newA').value = '';
+    renderTable();
+  }
+  function renderTable() {
+    const tbody = document.getElementById('qaTableBody');
+    tbody.innerHTML = '';
+    qaList.forEach((item, i) => {
+      tbody.innerHTML += `
+        <tr>
+          <td>${i + 1}</td>
+          <td>${escapeHtml(item.q)}</td>
+          <td>${escapeHtml(item.a)}</td>
+          <td class="actions">
+            <button class="btn-sm btn-edit" onclick="startEdit(${i})">${isArabic ? '✏️ تعديل' : '✏️ Edit'}</button>
+            <button class="btn-sm btn-del" onclick="deleteQA(${i})">${isArabic ? '🗑️ حذف' : '🗑️ Del'}</button>
+          </td>
+        </tr>`;
+    });
+  }
+
+  function startEdit(i) {
+    editIndex = i;
+    document.getElementById('newQ').value = qaList[i].q;
+    document.getElementById('newA').value = qaList[i].a;
+    document.getElementById('addBtn').textContent = isArabic ? '💾 حفظ التعديل' : '💾 Save';
+    document.getElementById('addBtn').style.background = '#10b981';
+    document.getElementById('addBtn').style.color = '#fff';
+    document.getElementById('newQ').focus();
+  }
+
+  function deleteQA(i) {
+    if (confirm(isArabic ? 'هل أنت متأكد من الحذف؟' : 'Are you sure to delete?')) {
+      qaList.splice(i, 1);
+      if (editIndex === i) { editIndex = -1; document.getElementById('addBtn').textContent = isArabic ? '➕ إضافة' : '➕ Add'; document.getElementById('addBtn').style.background = 'var(--accent)'; document.getElementById('addBtn').style.color = '#0f172a'; }
+      renderTable();
+    }
+  }
+
+  function escapeHtml(text) {
+    return text.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>').replace(/"/g, '"');
+  }
+
+  function generateBot() {
+    const name = document.getElementById('botName').value.trim() || (isArabic ? 'بوت ذكي' : 'Smart Bot');
+    const welcome = document.getElementById('welcomeMsg').value.trim() || (isArabic ? 'أهلاً بك! كيف أقدر أساعدك؟' : 'Hello! How can I help you today?');
+    if (qaList.length === 0) return alert(isArabic ? 'أضف سؤال ورد واحد على الأقل' : 'Add at least one Q&A pair');
+
+    const qaJSON = JSON.stringify(qaList).replace(/<\/script>/gi, '<\\/script>');
+
+    const template = `<!DOCTYPE html><html lang="${isArabic?'ar':'en'}" dir="${isArabic?'rtl':'ltr'}"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${escapeHtml(name)}</title><style>body{margin:0;font-family:system-ui,-apple-system,sans-serif;background:#f0f2f5;display:flex;justify-content:center;min-height:100vh}.chat{width:100%;max-width:480px;background:#fff;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,0.1);overflow:hidden;display:flex;flex-direction:column;height:90vh;margin:20px auto}.header{background:linear-gradient(135deg,#2563eb,#1e40af);color:#fff;padding:16px;text-align:center;font-size:18px;font-weight:600}.messages{flex:1;padding:16px;overflow-y:auto;display:flex;flex-direction:column;gap:12px}.msg{max-width:80%;padding:12px 16px;border-radius:16px;font-size:14px;line-height:1.5;word-break:break-word}.user{align-self:flex-end;background:#2563eb;color:#fff;border-bottom-left-radius:4px}.bot{align-self:flex-start;background:#e2e8f0;color:#0f172a;border-bottom-right-radius:4px}.quick-replies{display:flex;flex-wrap:wrap;gap:8px;padding:0 16px 12px;justify-content:center}.qr-btn{background:#fff;border:1px solid #cbd5e1;padding:8px 14px;border-radius:20px;font-size:13px;cursor:pointer;transition:0.2s}.qr-btn:hover{background:#f1f5f9;border-color:#94a3b8}.input-area{padding:12px;border-top:1px solid #e2e8f0;display:flex;gap:8px;background:#f8fafc}input{flex:1;padding:12px;border:1px solid #cbd5e1;border-radius:10px;outline:none;font-size:14px}input:focus{border-color:#2563eb}button.send{background:#2563eb;color:#fff;border:none;padding:12px 20px;border-radius:10px;font-weight:600;cursor:pointer}footer{text-align:center;padding:10px;font-size:12px;color:#64748b;background:#f8fafc;border-top:1px solid #e2e8f0}</style></head><body><div class="chat"><div class="header">${escapeHtml(name)}</div><div class="messages" id="messages"></div><div class="quick-replies" id="quickReplies"></div><div class="input-area"><input type="text" id="userInput" placeholder="${isArabic?'اكتب رسالتك هنا...':'Type your message...'}"><button class="send" onclick="handleSend()">${isArabic?'إرسال':'Send'}</button></div><footer>A.Y for Technology | CEO: عبدالله عمران</footer></div><script>const qa=${qaJSON};const msgDiv=document.getElementById('messages');const qrDiv=document.getElementById('quickReplies');const input=document.getElementById('userInput');function addMsg(txt,type){const d=document.createElement('div');d.className='msg '+type;d.textContent=txt;msgDiv.appendChild(d);msgDiv.scrollTop=msgDiv.scrollHeight}function showReplies(){qrDiv.innerHTML='';qa.forEach(q=>{const b=document.createElement('button');b.className='qr-btn';b.textContent=q.q;b.onclick=()=>{input.value=q.q;handleSend()};qrDiv.appendChild(b)})}function handleSend(){const v=input.value.trim();if(!v)return;addMsg(v,'user');input.value='';const match=qa.find(q=>v.toLowerCase().includes(q.q.toLowerCase())||q.q.toLowerCase().includes(v.toLowerCase()));if(match){setTimeout(()=>addMsg(match.a,'bot'),600);}else{setTimeout(()=>{addMsg('${isArabic?'هذا السؤال خارج صلاحياتي':'This question is out of my scope'}','bot');showReplies()},800);}}window.onload=()=>{addMsg('${escapeHtml(welcome)}','bot');showReplies()};input.addEventListener('keypress',e=>{if(e.key==='Enter')handleSend()})<\/script></body></html>`;
+
+    const blob = new Blob([template], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${name.replace(/\s+/g, '-')}-bot.html`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  document.getElementById('addBtn').addEventListener('click', addOrUpdateQA);
+  renderTable();
+</script>
+
+</body>
+</html>
