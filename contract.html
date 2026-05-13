@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A.Y for Technology - نموذج العقد</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Firebase SDK -->
+  <script type="module">
+    // ============================================================
+    // إعداد Firebase - ضع بيانات مشروعك هنا
+    // Firebase Configuration - Replace with your project credentials
+    // ============================================================
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getDatabase, ref, push, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+   const firebaseConfig = {
+      // ⚠️ ضع إعدادات Firebase الخاصة بك هنا
+      // ⚠️ PLACE YOUR FIREBASE CONFIG HERE
+      apiKey: "AIzaSyBv1Nb0xyz2SViJo2pvS4Jxva2iAszc83Y",
+     authDomain: "ayfortecnology.firebaseapp.com",
+      databaseURL: "https://ayfortecnology-default-rtdb.firebaseio.com",
+      projectId: "ayfortecnology",
+      torageBucket: "ayfortecnology.firebasestorage.app",
+      messagingSenderId: "674872142505",
+     appId: "1:674872142505:web:ca0d5957f25364f21697b8",
+    };
+
+    // تهيئة Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    // ============================================================
+    // EmailJS - لإرسال الإشعارات بالبريد الإلكتروني
+    // ⚠️ ضع مفاتيح EmailJS الخاصة بك هنا
+    // ⚠️ PLACE YOUR EMAILJS KEYS HERE
+    // ============================================================
+    const EMAILJS_SERVICE_ID = "service_kiq1cbs";
+    const EMAILJS_TEMPLATE_ID = "template_jx16hhd";
+    const EMAILJS_PUBLIC_KEY = "IJ5zCeOYcNZsLThPu";
+    const NOTIFICATION_EMAIL = "abdallahwpo@gmail.com";
+
+    // تصدير الدوال للاستخدام العالمي
+    window.firebaseDB = db;
+    window.firebaseRef = ref;
+    window.firebasePush = push;
+    window.firebaseTimestamp = serverTimestamp;
+    window.EMAILJS_CONFIG = { SERVICE_ID: EMAILJS_SERVICE_ID, TEMPLATE_ID: EMAILJS_TEMPLATE_ID, PUBLIC_KEY: EMAILJS_PUBLIC_KEY, NOTIFICATION_EMAIL };
+  </script>
+
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+  <style>
+    :root {
+      --primary: #6366f1;
+      --secondary: #8b5cf6;
+      --accent: #06b6d4;
+      --neon-blue: #00d4ff;
+      --neon-purple: #a855f7;
+      --dark-bg: #020617;
+      --dark-card: #0f172a;
+      --dark-border: #1e293b;
+      --light-bg: #f0f4ff;
+      --light-card: #ffffff;
+      --light-border: #e2e8f0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      transition: background-color 0.4s ease, color 0.4s ease;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* وضع داكن */
+    body.dark {
+      background: var(--dark-bg);
+      color: #e2e8f0;
+    }
+
+    /* وضع فاتح */
+    body.light {
+      background: var(--light-bg);
+      color: #1e293b;
+    }
+    #particles-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0;
+    }
+    .grid-lines {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.05;
+      background-image:
+        linear-gradient(var(--neon-blue) 1px, transparent 1px),
+        linear-gradient(90deg, var(--neon-blue) 1px, transparent 1px);
+      background-size: 60px 60px;
+
+    }
+
+    body.light .grid-lines { opacity: 0.03; }
+
+      to { width: 100%; }
+    }
+
+
+      50% { border-color: var(--neon-blue); }
+    }
+
+    /* ============================================================
+       توهج النيون
+       Neon Glow Effect
+    ============================================================ */
+    .neon-text {
+      text-shadow:
+        0 0 10px var(--neon-blue),
+        0 0 20px var(--neon-blue),
+        0 0 40px var(--neon-blue);
+    }
+
+    .neon-border {
+      box-shadow:
+        0 0 5px var(--primary),
+        0 0 10px var(--primary),
+        inset 0 0 5px rgba(99, 102, 241, 0.1);
+    }
+
+    /* ============================================================
+       بطاقات الزجاج المسحوب (Glassmorphism)
+       Glassmorphism Cards
+    ============================================================ */
+    .glass-card {
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      transition: all 0.3s ease;
+    }
+
+    body.dark .glass-card {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+    }
+
+    body.light .glass-card {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(99, 102, 241, 0.15);
+      box-shadow: 0 8px 32px rgba(99, 102, 241, 0.1);
+    }
+
+    .glass-card:hover {
+      transform: translateY(-2px);
+    }
+
+    body.dark .glass-card:hover {
+      border-color: rgba(99, 102, 241, 0.5);
+      box-shadow: 0 0 30px rgba(99, 102, 241, 0.2);
+    }
+
+    /* ============================================================
+       حقول الإدخال
+       Input Fields
+    ============================================================ */
+    .cyber-input {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 8px;
+      outline: none;
+      font-family: 'Cairo', sans-serif;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    body.dark .cyber-input {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      color: #e2e8f0;
+    }
+
+    body.light .cyber-input {
+      background: rgba(248, 250, 252, 0.9);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      color: #1e293b;
+    }
+
+    body.dark .cyber-input:focus {
+      border-color: var(--neon-blue);
+      box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.15), 0 0 20px rgba(0, 212, 255, 0.1);
+    }
+
+    body.light .cyber-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+    }
+
+    body.dark .cyber-input::placeholder { color: rgba(148, 163, 184, 0.6); }
+    body.light .cyber-input::placeholder { color: rgba(100, 116, 139, 0.7); }
+    .cyber-btn {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      font-family: 'Cairo', sans-serif;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 16px;
+      width: 100%;
+    }
+
+    .cyber-btn::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+      transform: rotate(45deg);
+      transition: 0.5s;
+      opacity: 0;
+    }
+
+    .cyber-btn:hover::before { opacity: 1; left: 100%; }
+
+    .cyber-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+    }
+
+    .cyber-btn:active { transform: translateY(0); }
+    .cyber-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    /* ============================================================
+       نبضة الحالة
+       Status Pulse
+    ============================================================ */
+
+      100% { transform: scale(2); opacity: 0; }
+    }
+
+    .status-dot {
+      position: relative;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: #10b981;
+    }
+
+    .status-dot::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      background: #10b981;
+    }
+
+    /* ============================================================
+       شريط التقدم المتحرك
+       Loading Progress Bar
+    ============================================================ */
+
+      to { width: 100%; }
+    }
+
+    .loading-bar {
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+
+    }
+
+    /* ============================================================
+       نافذة الإشعار
+       Notification Toast
+    ============================================================ */
+    .toast {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-100px);
+      z-index: 9999;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      min-width: 300px;
+      text-align: center;
+    }
+
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+
+      to { opacity: 1; }
+    }
+
+
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .logo-container {}
+
+    /* ============================================================
+       قسم الخصوصية والشروط
+       Privacy & Terms Section
+    ============================================================ */
+    .terms-scroll {
+      max-height: 200px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+    }
+
+    body.dark .terms-scroll { scrollbar-color: var(--primary) rgba(30,41,59,0.5); }
+    body.light .terms-scroll { scrollbar-color: var(--primary) rgba(226,232,240,0.8); }
+
+    /* زر تبديل الوضع */
+    .toggle-switch {
+      width: 56px; height: 28px;
+      border-radius: 14px;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      top: 3px; left: 3px;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: white;
+      transition: transform 0.3s;
+    }
+
+    .toggle-switch.active::after { transform: translateX(28px); }
+
+    body.dark .toggle-switch { background: var(--primary); }
+    body.light .toggle-switch { background: #94a3b8; }
+
+    /* ============================================================
+       خط فاصل متوهج
+       Glowing Divider
+    ============================================================ */
+    .glow-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--primary), var(--accent), transparent);
+      margin: 2px 0;
+    }
+
+      40% { transform: translateY(-20px); }
+      60% { transform: translateY(-10px); }
+    }
+
+
+
+    /* Scanning line effect */
+
+    .scan-line {
+      position: absolute;
+      left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body class="dark">
+  <!-- ============================================================
+       خلفية الجسيمات المتحركة
+       Animated Particles Background
+  ============================================================ -->
+
+  <div class="grid-lines"></div>
+
+  <!-- ============================================================
+       نافذة الإشعارات
+       Toast Notifications
+  ============================================================ -->
+  <div id="toast" class="toast">
+    <div id="toast-content" class="glass-card px-6 py-4 rounded-2xl flex items-center gap-3 shadow-2xl">
+      <span id="toast-icon" class="text-2xl">✅</span>
+      <span id="toast-msg" class="font-bold text-sm"></span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       الصفحة الرئيسية
+       Main Page
+  ============================================================ -->
+  <div class="relative z-10 min-h-screen">
+    
+    <!-- ============================================================
+         شريط التنقل العلوي
+         Top Navigation Bar
+    ============================================================ -->
+   <nav class="sticky top-0 z-50 glass-card border-b border-indigo-500/20 px-4 py-3">
+  <div class="max-w-7xl mx-auto flex items-center justify-between gap-2">
+    
+    <div class="flex items-center gap-2 shrink-0">
+      <div class="w-10 h-10 rounded-xl overflow-hidden border-2 border-indigo-500/50 flex items-center justify-center bg-gradient-to-br from-indigo-600 to-purple-700">
+        <span class="text-white font-black text-sm" style="font-family: 'Orbitron', monospace;">AY</span>
+      </div>
+      <div class="hidden sm:block">
+        <h1 class="font-black text-xs leading-tight" style="font-family: 'Orbitron', monospace; color: var(--neon-blue);">A.Y for Technology</h1>
+      </div>
+    </div>
+
+    <div class="flex items-center px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30">
+      <div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse mr-2 ml-2"></div>
+      <span class="text-[10px] text-emerald-400 font-bold" id="status-text">متصل</span>
+    </div>
+
+    <div class="flex items-center gap-3 shrink-0">
+      <button onclick="toggleLang()" class="px-2 py-1 rounded-lg text-[10px] font-bold border border-indigo-500/40 bg-indigo-500/10" id="lang-btn">EN</button>
+      
+      <div class="flex items-center gap-1">
+        <span class="text-xs">🌙</span>
+        <div class="toggle-switch active scale-75" id="theme-toggle" onclick="toggleTheme()"></div>
+        <span class="text-xs">☀️</span>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+    <!-- ============================================================
+         قسم الهيرو
+         Hero Section
+    ============================================================ -->
+    <section class="py-20 px-6 text-center relative overflow-hidden">
+      <div class="scan-line"></div>
+      
+      <!-- دائرة الخلفية المضيئة -->
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-5 pointer-events-none"
+           style="background: radial-gradient(circle, var(--primary), transparent 70%);"></div>
+
+      <div class="max-w-4xl mx-auto relative z-10">
+        
+        <!-- شارة AI -->
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8"
+             style="background: rgba(99,102,241,0.15); border: 1px solid rgba(99,102,241,0.4);">
+          <span class="text-sm">🤖</span>
+          <span class="text-sm font-semibold text-indigo-400" id="hero-badge">منصة الذكاء الاصطناعي للمشاريع</span>
+        </div>
+
+        <!-- العنوان الرئيسي -->
+        <h1 class="text-5xl md:text-7xl font-black mb-6 leading-tight" 
+            style="font-family: 'Orbitron', monospace; background: linear-gradient(135deg, #6366f1, #00d4ff, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+          A.Y for Technology
+        </h1>
+
+        <p class="text-xl md:text-2xl mb-4 font-bold" id="hero-tagline"
+           style="color: var(--neon-blue);">
+          نحول رؤيتك إلى واقع رقمي ذكي
+        </p>
+
+        <p class="text-base opacity-70 mb-12 max-w-2xl mx-auto" id="hero-desc">
+          نقدم حلول ذكاء اصطناعي متكاملة للمشاريع المتوسطة، مع ضمان الجودة والشفافية في كل خطوة من مراحل التطوير.
+        </p>
+
+        <!-- إحصائيات سريعة -->
+        <div class="grid grid-cols-3 gap-6 max-w-lg mx-auto">
+          <div class="glass-card rounded-2xl p-4 text-center">
+            <div class="text-3xl font-black mb-1" style="font-family: 'Orbitron', monospace; color: var(--neon-blue);">98%</div>
+            <div class="text-xs opacity-60" id="stat1">رضا العملاء</div>
+          </div>
+          <div class="glass-card rounded-2xl p-4 text-center">
+            <div class="text-3xl font-black mb-1" style="font-family: 'Orbitron', monospace; color: var(--neon-purple);">50+</div>
+            <div class="text-xs opacity-60" id="stat2">مشروع مكتمل</div>
+          </div>
+          <div class="glass-card rounded-2xl p-4 text-center">
+            <div class="text-3xl font-black mb-1" style="font-family: 'Orbitron', monospace; color: #10b981;">24/7</div>
+            <div class="text-xs opacity-60" id="stat3">دعم متواصل</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="glow-divider max-w-4xl mx-auto"></div>
+
+    <!-- ============================================================
+         نموذج طلب الخدمة / العقد
+         Service Request Form / Contract
+    ============================================================ -->
+    <section class="py-16 px-6">
+      <div class="max-w-3xl mx-auto">
+        
+        <!-- عنوان القسم -->
+        <div class="text-center mb-12">
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-4"
+               style="background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.3);">
+            <span class="text-sm">📋</span>
+            <span class="text-sm font-semibold" style="color: var(--accent);" id="form-badge">نموذج طلب الخدمة</span>
+          </div>
+          <h2 class="text-3xl font-black mb-3" id="form-title">ابدأ مشروعك معنا</h2>
+          <p class="opacity-60 text-sm" id="form-desc">أرسل تفاصيل مشروعك وسنتواصل معك خلال 24 ساعة</p>
+        </div>
+
+        <!-- البطاقة الرئيسية للنموذج -->
+        <div class="glass-card rounded-3xl p-8 md:p-10 relative overflow-hidden">
+          
+          <!-- خط المسح -->
+
+          
+          <!-- مؤشر أعلى البطاقة -->
+          <div class="flex items-center gap-2 mb-8 pb-6" style="border-bottom: 1px solid rgba(99,102,241,0.2);">
+            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+            <span class="mr-4 text-sm opacity-50 font-mono" id="form-terminal">contract_request.form</span>
+          </div>
+
+          <form id="contractForm" onsubmit="handleSubmit(event)">
+            
+            <!-- الاسم والهاتف -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <div>
+                <label class="block text-sm font-bold mb-2 opacity-80" id="label-name">
+                  👤 اسم العميل <span class="text-red-400">*</span>
+                </label>
+                <input type="text" id="clientName" class="cyber-input" 
+                       placeholder="أدخل اسمك الكامل" required
+                       oninput="updatePlaceholder(this)">
+              </div>
+              <div>
+                <label class="block text-sm font-bold mb-2 opacity-80" id="label-phone">
+                  📱 رقم الهاتف <span class="text-red-400">*</span>
+                </label>
+                <input type="tel" id="clientPhone" class="cyber-input" 
+                       placeholder="+20 1234567890" required>
+              </div>
+            </div>
+
+            <!-- الإيميل والدولة -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <div>
+                <label class="block text-sm font-bold mb-2 opacity-80" id="label-email">
+                  📧 البريد الإلكتروني <span class="text-red-400">*</span>
+                </label>
+                <input type="email" id="clientEmail" class="cyber-input" 
+                       placeholder="example@domain.com" required>
+              </div>
+              <div>
+                <label class="block text-sm font-bold mb-2 opacity-80" id="label-country">
+                  🌍 الدولة <span class="text-red-400">*</span>
+                </label>
+                <select id="clientCountry" class="cyber-input" required>
+                  <option value="">-- اختر الدولة --</option>
+                  <option value="مصر">🇪🇬 مصر</option>
+                  <option value="السعودية">🇸🇦 السعودية</option>
+                  <option value="الإمارات">🇦🇪 الإمارات</option>
+                  <option value="الكويت">🇰🇼 الكويت</option>
+                  <option value="قطر">🇶🇦 قطر</option>
+                  <option value="البحرين">🇧🇭 البحرين</option>
+                  <option value="عُمان">🇴🇲 عُمان</option>
+                  <option value="الأردن">🇯🇴 الأردن</option>
+                  <option value="لبنان">🇱🇧 لبنان</option>
+                  <option value="العراق">🇮🇶 العراق</option>
+                  <option value="المغرب">🇲🇦 المغرب</option>
+                  <option value="تونس">🇹🇳 تونس</option>
+                  <option value="الجزائر">🇩🇿 الجزائر</option>
+                  <option value="ليبيا">🇱🇾 ليبيا</option>
+                  <option value="السودان">🇸🇩 السودان</option>
+                  <option value="سوريا">🇸🇾 سوريا</option>
+                  <option value="اليمن">🇾🇪 اليمن</option>
+                  <option value="فلسطين">🇵🇸 فلسطين</option>
+                  <option value="أخرى">🌐 أخرى</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- نوع الخدمة -->
+            <div class="mb-6">
+              <label class="block text-sm font-bold mb-2 opacity-80" id="label-service">
+                🤖 نوع الخدمة المطلوبة <span class="text-red-400">*</span>
+              </label>
+              <select id="serviceType" class="cyber-input" required>
+                <option value="">-- اختر نوع الخدمة --</option>
+                <option value="تطوير تطبيق ذكاء اصطناعي">🧠 تطوير تطبيق ذكاء اصطناعي</option>
+                <option value="أتمتة العمليات التجارية">⚙️ أتمتة العمليات التجارية</option>
+                <option value="تحليل البيانات والتقارير">📊 تحليل البيانات والتقارير</option>
+                <option value="chatbot وموظف افتراضي">💬 Chatbot وموظف افتراضي</option>
+                <option value="تطوير موقع/تطبيق ذكي">🌐 تطوير موقع / تطبيق ذكي</option>
+                <option value="استشارات تقنية">💡 استشارات تقنية</option>
+                <option value="أخرى">📌 أخرى</option>
+              </select>
+            </div>
+
+            <!-- تفاصيل المشروع -->
+            <div class="mb-6">
+              <label class="block text-sm font-bold mb-2 opacity-80" id="label-details">
+                📝 تفاصيل المشروع <span class="text-red-400">*</span>
+              </label>
+              <textarea id="projectDetails" class="cyber-input resize-none" rows="5"
+                        placeholder="اشرح مشروعك بالتفصيل: ما هو المشكلة التي تريد حلها؟ ما هي التوقعات؟ ما هو الميزانية التقريبية؟..."
+                        required minlength="50"></textarea>
+              <div class="flex justify-between mt-1">
+                <span class="text-xs opacity-50" id="chars-hint">الحد الأدنى 50 حرف</span>
+                <span class="text-xs opacity-50" id="char-count">0 / 1000</span>
+              </div>
+            </div>
+
+            <!-- الميزانية التقديرية -->
+            <div class="mb-8">
+              <label class="block text-sm font-bold mb-3 opacity-80" id="label-budget">
+                💰 الميزانية التقديرية
+              </label>
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-3" id="budget-grid">
+                <label class="budget-option cursor-pointer">
+                  <input type="radio" name="budget" value="أقل من 1000$" class="hidden">
+                  <div class="budget-card p-3 rounded-xl text-center text-sm font-semibold transition-all border" 
+                       style="border-color: rgba(99,102,241,0.3);">
+                    <div class="text-lg mb-1">💵</div>
+                    &lt; 1,000$
+                  </div>
+                </label>
+                <label class="budget-option cursor-pointer">
+                  <input type="radio" name="budget" value="1000$ - 5000$" class="hidden">
+                  <div class="budget-card p-3 rounded-xl text-center text-sm font-semibold transition-all border"
+                       style="border-color: rgba(99,102,241,0.3);">
+                    <div class="text-lg mb-1">💰</div>
+                    1K - 5K$
+                  </div>
+                </label>
+                <label class="budget-option cursor-pointer">
+                  <input type="radio" name="budget" value="5000$ - 20000$" class="hidden">
+                  <div class="budget-card p-3 rounded-xl text-center text-sm font-semibold transition-all border"
+                       style="border-color: rgba(99,102,241,0.3);">
+                    <div class="text-lg mb-1">💎</div>
+                    5K - 20K$
+                  </div>
+                </label>
+                <label class="budget-option cursor-pointer">
+                  <input type="radio" name="budget" value="أكثر من 20000$" class="hidden">
+                  <div class="budget-card p-3 rounded-xl text-center text-sm font-semibold transition-all border"
+                       style="border-color: rgba(99,102,241,0.3);">
+                    <div class="text-lg mb-1">🚀</div>
+                    20K$+
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- الموافقة على الشروط -->
+            <div class="mb-8 p-4 rounded-xl" style="background: rgba(99,102,241,0.05); border: 1px solid rgba(99,102,241,0.2);">
+              <div class="flex items-start gap-3">
+                <input type="checkbox" id="agreeTerms" class="mt-1 w-4 h-4 accent-indigo-500" required>
+                <label for="agreeTerms" class="text-sm opacity-80 cursor-pointer" id="terms-agree">
+                  أوافق على <a href="#privacy" class="text-indigo-400 hover:underline" id="link-privacy">سياسة الخصوصية</a> 
+                  و<a href="#terms" class="text-indigo-400 hover:underline" id="link-terms">شروط الاستخدام</a> 
+                  الخاصة بشركة A.Y for Technology
+                </label>
+              </div>
+            </div>
+
+            <!-- زر الإرسال -->
+            <button type="submit" class="cyber-btn" id="submit-btn">
+              <span id="btn-text">🚀 إرسال الطلب</span>
+              <div id="btn-loader" class="hidden flex items-center justify-center gap-2">
+                <div class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                <span id="btn-loading">جارٍ الإرسال...</span>
+              </div>
+            </button>
+
+          </form>
+
+          <!-- رسالة النجاح -->
+          <div id="success-msg" class="hidden text-center py-10">
+            <div class="success-icon text-6xl mb-4">✅</div>
+            <h3 class="text-2xl font-black mb-2" id="success-title">تم إرسال طلبك بنجاح!</h3>
+            <p class="opacity-70 mb-6" id="success-desc">سنتواصل معك خلال 24 ساعة على البريد الإلكتروني المسجل</p>
+            <button onclick="resetForm()" class="cyber-btn" style="width: auto; padding: 10px 24px;" id="success-btn">
+              إرسال طلب آخر
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="glow-divider max-w-4xl mx-auto"></div>
+
+    <!-- ============================================================
+         قسم الخدمات
+         Services Section
+    ============================================================ -->
+    <section class="py-16 px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-black mb-3" id="services-title">خدماتنا المتميزة</h2>
+          <p class="opacity-60 text-sm" id="services-desc">حلول ذكاء اصطناعي شاملة لتحويل أعمالك</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- بطاقة خدمة 1 -->
+          <div class="glass-card rounded-2xl p-6">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-4"
+                 style="background: rgba(99,102,241,0.2);">🧠</div>
+            <h3 class="font-black text-lg mb-2" id="s1-title">ذكاء اصطناعي مخصص</h3>
+            <p class="text-sm opacity-60 leading-relaxed" id="s1-desc">نطور نماذج AI مصممة خصيصاً لاحتياجات مشروعك وصناعتك</p>
+          </div>
+          
+          <!-- بطاقة خدمة 2 -->
+          <div class="glass-card rounded-2xl p-6">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-4"
+                 style="background: rgba(0,212,255,0.2);">⚡</div>
+            <h3 class="font-black text-lg mb-2" id="s2-title">أتمتة ذكية</h3>
+            <p class="text-sm opacity-60 leading-relaxed" id="s2-desc">نحول العمليات اليدوية إلى أنظمة آلية تعمل بدقة على مدار الساعة</p>
+          </div>
+          
+          <!-- بطاقة خدمة 3 -->
+          <div class="glass-card rounded-2xl p-6">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-4"
+                 style="background: rgba(168,85,247,0.2);">📊</div>
+            <h3 class="font-black text-lg mb-2" id="s3-title">تحليل البيانات</h3>
+            <p class="text-sm opacity-60 leading-relaxed" id="s3-desc">نحول بياناتك الخام إلى رؤى قابلة للتنفيذ تدعم قراراتك</p>
+          </div>
+          
+          <!-- بطاقة خدمة 4 -->
+          <div class="glass-card rounded-2xl p-6">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-4"
+                 style="background: rgba(16,185,129,0.2);">💬</div>
+            <h3 class="font-black text-lg mb-2" id="s4-title">مساعدون افتراضيون</h3>
+            <p class="text-sm opacity-60 leading-relaxed" id="s4-desc">Chatbots ذكية تتفاعل مع عملائك بشكل طبيعي وفعال</p>
+          </div>
+          
+          <!-- بطاقة خدمة 5 -->
+          <div class="glass-card rounded-2xl p-6">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-4"
+                 style="background: rgba(245,158,11,0.2);">🌐</div>
+            <h3 class="font-black text-lg mb-2" id="s5-title">تطوير تطبيقات ذكية</h3>
+            <p class="text-sm opacity-60 leading-relaxed" id="s5-desc">تطبيقات ويب وموبايل مدمجة بقدرات AI متقدمة</p>
+          </div>
+          
+          <!-- بطاقة خدمة 6 -->
+          <div class="glass-card rounded-2xl p-6">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-4"
+                 style="background: rgba(239,68,68,0.2);">🔒</div>
+            <h3 class="font-black text-lg mb-2" id="s6-title">أمان وخصوصية</h3>
+            <p class="text-sm opacity-60 leading-relaxed" id="s6-desc">نضمن حماية بياناتك والامتثال لأعلى معايير الأمان</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="glow-divider max-w-4xl mx-auto"></div>
+
+    <!-- ============================================================
+         سياسة الخصوصية
+         Privacy Policy
+    ============================================================ -->
+    <section id="privacy" class="py-16 px-6">
+      <div class="max-w-4xl mx-auto">
+        <div class="glass-card rounded-3xl p-8">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center text-xl"
+                 style="background: rgba(99,102,241,0.2);">🔒</div>
+            <h2 class="text-2xl font-black" id="privacy-title">سياسة الخصوصية</h2>
+          </div>
+          
+          <div class="space-y-4 text-sm leading-loose opacity-80 terms-scroll" id="privacy-content">
+            <div>
+              <h4 class="font-black text-base mb-2 opacity-100" style="color: var(--neon-blue);">1. جمع البيانات الشخصية</h4>
+              <p>تقوم شركة A.Y for Technology بجمع المعلومات التي تقدمها طوعاً عند تعبئة نماذج الخدمة، بما في ذلك الاسم والبريد الإلكتروني ورقم الهاتف والدولة. لا نجمع بيانات إضافية دون إذنك الصريح.</p>
+            </div>
+            <div>
+              <h4 class="font-black text-base mb-2 opacity-100" style="color: var(--neon-blue);">2. استخدام البيانات</h4>
+              <p>نستخدم بياناتك حصراً للتواصل بشأن طلبات الخدمة، وتقديم الدعم الفني، وإرسال العروض التي طلبتها. لن نبيع أو نؤجر أو نشارك بياناتك مع أي طرف ثالث دون موافقتك.</p>
+            </div>
+            <div>
+              <h4 class="font-black text-base mb-2 opacity-100" style="color: var(--neon-blue);">3. أمان البيانات</h4>
+              <p>نستخدم أحدث تقنيات التشفير (SSL/TLS) لحماية بياناتك أثناء النقل والتخزين. جميع البيانات مخزنة على خوادم Firebase المؤمنة من Google.</p>
+            </div>
+            <div>
+              <h4 class="font-black text-base mb-2 opacity-100" style="color: var(--neon-blue);">4. حقوقك</h4>
+              <p>يحق لك طلب الوصول إلى بياناتك أو تعديلها أو حذفها في أي وقت عبر التواصل معنا على: abdallahwpo@gmail.com</p>
+            </div>
+            <div>
+              <h4 class="font-black text-base mb-2 opacity-100" style="color: var(--neon-blue);">5. ملفات تعريف الارتباط</h4>
+              <p>نستخدم ملفات الكوكيز الضرورية فقط لتحسين تجربة الاستخدام. يمكنك تعطيلها من إعدادات متصفحك.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         شروط الاستخدام
+         Terms of Service
+    ============================================================ -->
+    <section id="terms" class="pb-16 px-6">
+      <div class="max-w-4xl mx-auto">
+        <div class="glass-card rounded-3xl p-8">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center text-xl"
+                 style="background: rgba(168,85,247,0.2);">📜</div>
+            <h2 class="text-2xl font-black" id="terms-title">شروط الاستخدام</h2>
+          </div>
+          
+          <div class="space-y-4 text-sm leading-loose opacity-80 terms-scroll" id="terms-content">
+            <div>
+              <h4 class="font-black text-base mb-2 opacity-100" style="color: var(--neon-purple);">1. قبول الشروط</h4>
+              <p>باستخدام خدمات A.Y for Technology، فإنك توافق على هذه الشروط بالكامل. إذا كنت لا توافق على أي جزء منها، يُرجى عدم استخدام خدماتنا.</p>
+            </div>
+            <div>
+              <h4 class="font-black text-base mb-2 opacity-100" style="color: var(--neon-purple);">2. طبيعة الخدمات</h4>
+              <p>تقدم الشركة خدمات تطوير برمجي وذكاء اصطناعي. الجداول الزمنية المذكورة تقديرية وقد تتأثر بمتطلبات المشروع. سيتم إبلاغك بأي تغييرات مسبقاً.</p>
+            </div>
+            <div>
+              <h4 class="font-black text-base mb-2 opacity-100" style="color: var(--neon-purple);">3. حقوق الملكية الفكرية</h4>
+              <p>جميع المنتجات المطورة خصيصاً لك تصبح ملكيتك بعد اكتمال الدفع. الأدوات والأطر العامة التي نستخدمها تخضع لتراخيصها الأصلية.</p>
+            </div>
+            <div>
+              <h4 class="font-black text-base mb-2 opacity-100" style="color: var(--neon-purple);">4. الدفع والإلغاء</h4>
+              <p>يتم تحديد آلية الدفع في عقد منفصل. في حالة الإلغاء، تُحتسب رسوم على العمل المنجز حتى تاريخ الإلغاء وفق ما هو متفق عليه.</p>
+            </div>
+            <div>
+              <h4 class="font-black text-base mb-2 opacity-100" style="color: var(--neon-purple);">5. حدود المسؤولية</h4>
+              <p>لا تتحمل الشركة مسؤولية الأضرار غير المباشرة الناتجة عن استخدام خدماتنا. مسؤوليتنا القصوى محدودة بقيمة العقد المبرم.</p>
+            </div>
+            <div>
+              <h4 class="font-black text-base mb-2 opacity-100" style="color: var(--neon-purple);">6. القانون المطبق</h4>
+              <p>تخضع هذه الشروط للقوانين المعمول بها، ويتم حل النزاعات بالتفاوض أولاً ثم التحكيم إذا لزم.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         الفوتر
+         Footer
+    ============================================================ -->
+    <footer class="glass-card border-t border-indigo-500/20 px-6 py-10">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div class="text-center md:text-right">
+            <h3 class="font-black text-lg mb-1" style="font-family: 'Orbitron', monospace; color: var(--neon-blue);">
+              A.Y for Technology
+            </h3>
+            <p class="text-sm opacity-60" id="footer-desc">نحن نبني مستقبلك الرقمي بذكاء</p>
+          </div>
+          <div class="flex items-center gap-6 text-sm opacity-60">
+            <a href="#privacy" class="hover:opacity-100 transition-opacity" id="footer-privacy">سياسة الخصوصية</a>
+            <span>|</span>
+            <a href="#terms" class="hover:opacity-100 transition-opacity" id="footer-terms">شروط الاستخدام</a>
+            <span>|</span>
+            <a href="mailto:abdallahwpo@gmail.com" class="hover:opacity-100 transition-opacity">📧 تواصل معنا</a>
+          </div>
+        </div>
+        <div class="glow-divider mt-6 mb-4"></div>
+        <p class="text-center text-xs opacity-40" id="footer-copy">
+          © 2025 A.Y for Technology. جميع الحقوق محفوظة.
+        </p>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ============================================================
+       JavaScript - المنطق الرئيسي
+       Main JavaScript Logic
+  ============================================================ -->
+  <script>
+
+
+    // ============================================================
+    // متغيرات الحالة
+    // State Variables
+    // ============================================================
+    let currentLang = 'ar';
+    let isDark = true;
+    let selectedBudget = '';
+
+    // ============================================================
+    // نظام الترجمة الثنائي
+    // Bilingual Translation System
+    // ============================================================
+    const translations = {
+      ar: {
+        dir: 'rtl',
+        lang: 'ar',
+        'nav-subtitle': 'شركة ذكاء اصطناعي للمشاريع المتوسطة',
+        'status-text': 'متصل',
+        'lang-btn': 'EN',
+        'hero-badge': 'منصة الذكاء الاصطناعي للمشاريع',
+        'hero-tagline': 'نحول رؤيتك إلى واقع رقمي ذكي',
+        'hero-desc': 'نقدم حلول ذكاء اصطناعي متكاملة للمشاريع المتوسطة، مع ضمان الجودة والشفافية في كل خطوة من مراحل التطوير.',
+        'stat1': 'رضا العملاء',
+        'stat2': 'مشروع مكتمل',
+        'stat3': 'دعم متواصل',
+        'form-badge': 'نموذج طلب الخدمة',
+        'form-title': 'ابدأ مشروعك معنا',
+        'form-desc': 'أرسل تفاصيل مشروعك وسنتواصل معك خلال 24 ساعة',
+        'form-terminal': 'contract_request.form',
+        'label-name': '👤 اسم العميل *',
+        'label-phone': '📱 رقم الهاتف *',
+        'label-email': '📧 البريد الإلكتروني *',
+        'label-country': '🌍 الدولة *',
+        'label-service': '🤖 نوع الخدمة المطلوبة *',
+        'label-details': '📝 تفاصيل المشروع *',
+        'label-budget': '💰 الميزانية التقديرية',
+        'chars-hint': 'الحد الأدنى 50 حرف',
+        'terms-agree': 'أوافق على سياسة الخصوصية وشروط الاستخدام الخاصة بشركة A.Y for Technology',
+        'link-privacy': 'سياسة الخصوصية',
+        'link-terms': 'شروط الاستخدام',
+        'btn-text': '🚀 إرسال الطلب',
+        'btn-loading': 'جارٍ الإرسال...',
+        'success-title': 'تم إرسال طلبك بنجاح!',
+        'success-desc': 'سنتواصل معك خلال 24 ساعة على البريد الإلكتروني المسجل',
+        'success-btn': 'إرسال طلب آخر',
+        'services-title': 'خدماتنا المتميزة',
+        'services-desc': 'حلول ذكاء اصطناعي شاملة لتحويل أعمالك',
+        's1-title': 'ذكاء اصطناعي مخصص',
+        's1-desc': 'نطور نماذج AI مصممة خصيصاً لاحتياجات مشروعك وصناعتك',
+        's2-title': 'أتمتة ذكية',
+        's2-desc': 'نحول العمليات اليدوية إلى أنظمة آلية تعمل بدقة على مدار الساعة',
+        's3-title': 'تحليل البيانات',
+        's3-desc': 'نحول بياناتك الخام إلى رؤى قابلة للتنفيذ تدعم قراراتك',
+        's4-title': 'مساعدون افتراضيون',
+        's4-desc': 'Chatbots ذكية تتفاعل مع عملائك بشكل طبيعي وفعال',
+        's5-title': 'تطوير تطبيقات ذكية',
+        's5-desc': 'تطبيقات ويب وموبايل مدمجة بقدرات AI متقدمة',
+        's6-title': 'أمان وخصوصية',
+        's6-desc': 'نضمن حماية بياناتك والامتثال لأعلى معايير الأمان',
+        'privacy-title': 'سياسة الخصوصية',
+        'terms-title': 'شروط الاستخدام',
+        'footer-desc': 'نحن نبني مستقبلك الرقمي بذكاء',
+        'footer-privacy': 'سياسة الخصوصية',
+        'footer-terms': 'شروط الاستخدام',
+        'footer-copy': '© 2025 A.Y for Technology. جميع الحقوق محفوظة.'
+      },
+      en: {
+        dir: 'ltr',
+        lang: 'en',
+        'nav-subtitle': 'AI Company for Medium Enterprises',
+        'status-text': 'Online',
+        'lang-btn': 'عربي',
+        'hero-badge': 'AI Platform for Projects',
+        'hero-tagline': 'Transforming Your Vision Into Smart Digital Reality',
+        'hero-desc': 'We provide comprehensive AI solutions for medium-sized projects, ensuring quality and transparency at every development stage.',
+        'stat1': 'Client Satisfaction',
+        'stat2': 'Projects Done',
+        'stat3': '24/7 Support',
+        'form-badge': 'Service Request Form',
+        'form-title': 'Start Your Project With Us',
+        'form-desc': 'Send your project details and we\'ll contact you within 24 hours',
+        'form-terminal': 'contract_request.form',
+        'label-name': '👤 Client Name *',
+        'label-phone': '📱 Phone Number *',
+        'label-email': '📧 Email Address *',
+        'label-country': '🌍 Country *',
+        'label-service': '🤖 Required Service *',
+        'label-details': '📝 Project Details *',
+        'label-budget': '💰 Estimated Budget',
+        'chars-hint': 'Minimum 50 characters',
+        'terms-agree': 'I agree to the Privacy Policy and Terms of Service of A.Y for Technology',
+        'link-privacy': 'Privacy Policy',
+        'link-terms': 'Terms of Service',
+        'btn-text': '🚀 Submit Request',
+        'btn-loading': 'Submitting...',
+        'success-title': 'Request Sent Successfully!',
+        'success-desc': 'We\'ll contact you within 24 hours at your registered email',
+        'success-btn': 'Submit Another Request',
+        'services-title': 'Our Premium Services',
+        'services-desc': 'Comprehensive AI solutions to transform your business',
+        's1-title': 'Custom AI',
+        's1-desc': 'We develop AI models designed specifically for your project and industry needs',
+        's2-title': 'Smart Automation',
+        's2-desc': 'We transform manual processes into automated systems working 24/7 with precision',
+        's3-title': 'Data Analytics',
+        's3-desc': 'We transform your raw data into actionable insights that support your decisions',
+        's4-title': 'Virtual Assistants',
+        's4-desc': 'Smart chatbots that interact with your customers naturally and effectively',
+        's5-title': 'Smart App Development',
+        's5-desc': 'Web and mobile apps integrated with advanced AI capabilities',
+        's6-title': 'Security & Privacy',
+        's6-desc': 'We ensure your data protection and compliance with the highest security standards',
+        'privacy-title': 'Privacy Policy',
+        'terms-title': 'Terms of Service',
+        'footer-desc': 'We build your digital future intelligently',
+        'footer-privacy': 'Privacy Policy',
+        'footer-terms': 'Terms of Service',
+        'footer-copy': '© 2025 A.Y for Technology. All rights reserved.'
+      }
+    };
+
+    // ============================================================
+    // تطبيق الترجمة
+    // Apply Translation
+    // ============================================================
+    function applyTranslation(lang) {
+      const t = translations[lang];
+      document.documentElement.dir = t.dir;
+      document.documentElement.lang = t.lang;
+      
+      Object.keys(t).forEach(key => {
+        if (key === 'dir' || key === 'lang') return;
+        const el = document.getElementById(key);
+        if (el) el.textContent = t[key];
+      });
+
+      // تحديث نص الرابطين في شروط الاستخدام
+      const termsAgreeEl = document.getElementById('terms-agree');
+      if (termsAgreeEl) {
+        if (lang === 'ar') {
+          termsAgreeEl.innerHTML = `أوافق على <a href="#privacy" class="text-indigo-400 hover:underline">سياسة الخصوصية</a> و<a href="#terms" class="text-indigo-400 hover:underline">شروط الاستخدام</a> الخاصة بشركة A.Y for Technology`;
+        } else {
+          termsAgreeEl.innerHTML = `I agree to the <a href="#privacy" class="text-indigo-400 hover:underline">Privacy Policy</a> and <a href="#terms" class="text-indigo-400 hover:underline">Terms of Service</a> of A.Y for Technology`;
+        }
+      }
+
+      // تحديث placeholders
+      const placeholders = {
+        ar: {
+          clientName: 'أدخل اسمك الكامل',
+          clientPhone: '+20 1234567890',
+          clientEmail: 'example@domain.com',
+          projectDetails: 'اشرح مشروعك بالتفصيل: ما هو المشكلة التي تريد حلها؟ ما هي التوقعات؟ ما هو الميزانية التقريبية؟...'
+        },
+        en: {
+          clientName: 'Enter your full name',
+          clientPhone: '+1 234 567 8900',
+          clientEmail: 'example@domain.com',
+          projectDetails: 'Describe your project in detail: What problem do you want to solve? What are your expectations? What is the approximate budget?...'
+        }
+      };
+
+      const ph = placeholders[lang];
+      ['clientName', 'clientPhone', 'clientEmail', 'projectDetails'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.placeholder = ph[id];
+      });
+
+      // تحديث خيارات select
+      const countrySelect = document.getElementById('clientCountry');
+      if (countrySelect) {
+        countrySelect.options[0].text = lang === 'ar' ? '-- اختر الدولة --' : '-- Select Country --';
+      }
+      const serviceSelect = document.getElementById('serviceType');
+      if (serviceSelect) {
+        serviceSelect.options[0].text = lang === 'ar' ? '-- اختر نوع الخدمة --' : '-- Select Service Type --';
+      }
+    }
+
+    // ============================================================
+    // تبديل اللغة
+    // Toggle Language
+    // ============================================================
+    function toggleLang() {
+      currentLang = currentLang === 'ar' ? 'en' : 'ar';
+      applyTranslation(currentLang);
+    }
+
+    // ============================================================
+    // تبديل الوضع (داكن/فاتح)
+    // Toggle Theme (Dark/Light)
+    // ============================================================
+    function toggleTheme() {
+      isDark = !isDark;
+      const body = document.body;
+      const toggle = document.getElementById('theme-toggle');
+      
+      if (isDark) {
+        body.className = 'dark';
+        toggle.classList.add('active');
+      } else {
+        body.className = 'light';
+        toggle.classList.remove('active');
+      }
+    }
+
+    // ============================================================
+    // إحصائيات عداد الأحرف
+    // Character Counter
+    // ============================================================
+    document.getElementById('projectDetails').addEventListener('input', function() {
+      const count = this.value.length;
+      document.getElementById('char-count').textContent = `${count} / 1000`;
+      if (count > 1000) this.value = this.value.substring(0, 1000);
+    });
+
+    // ============================================================
+    // اختيار الميزانية
+    // Budget Selection
+    // ============================================================
+    document.querySelectorAll('.budget-option').forEach(label => {
+      label.addEventListener('click', function() {
+        // إزالة التحديد من الجميع
+        document.querySelectorAll('.budget-card').forEach(card => {
+          card.style.background = '';
+          card.style.borderColor = 'rgba(99,102,241,0.3)';
+          card.style.color = '';
+        });
+        
+        // تحديد العنصر الحالي
+        const card = this.querySelector('.budget-card');
+        card.style.background = 'rgba(99,102,241,0.3)';
+        card.style.borderColor = '#6366f1';
+        
+        selectedBudget = this.querySelector('input').value;
+      });
+    });
+
+    // ============================================================
+    // عرض الإشعارات (Toast)
+    // Show Toast Notifications
+    // ============================================================
+    function showToast(msg, type = 'success') {
+      const toast = document.getElementById('toast');
+      const content = document.getElementById('toast-content');
+      const icon = document.getElementById('toast-icon');
+      const msgEl = document.getElementById('toast-msg');
+      
+      const icons = { success: '✅', error: '❌', warning: '⚠️', info: 'ℹ️' };
+      const colors = {
+        success: 'rgba(16,185,129,0.2)',
+        error: 'rgba(239,68,68,0.2)',
+        warning: 'rgba(245,158,11,0.2)',
+        info: 'rgba(99,102,241,0.2)'
+      };
+      
+      icon.textContent = icons[type];
+      msgEl.textContent = msg;
+      content.style.background = colors[type];
+      
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 4000);
+    }
+
+    // ============================================================
+    // معالجة إرسال النموذج
+    // Form Submission Handler
+    // ============================================================
+    async function handleSubmit(e) {
+      e.preventDefault();
+      
+      const btn = document.getElementById('submit-btn');
+      const btnText = document.getElementById('btn-text');
+      const btnLoader = document.getElementById('btn-loader');
+      
+      // التحقق من الحقول
+      const name = document.getElementById('clientName').value.trim();
+      const phone = document.getElementById('clientPhone').value.trim();
+      const email = document.getElementById('clientEmail').value.trim();
+      const country = document.getElementById('clientCountry').value;
+      const service = document.getElementById('serviceType').value;
+      const details = document.getElementById('projectDetails').value.trim();
+      const agreed = document.getElementById('agreeTerms').checked;
+
+      if (!name || !phone || !email || !country || !service || !details) {
+        showToast(currentLang === 'ar' ? 'يرجى ملء جميع الحقول المطلوبة' : 'Please fill in all required fields', 'warning');
+        return;
+      }
+
+      if (details.length < 50) {
+        showToast(currentLang === 'ar' ? 'تفاصيل المشروع قصيرة جداً (الحد الأدنى 50 حرف)' : 'Project details too short (min 50 chars)', 'warning');
+        return;
+      }
+
+      if (!agreed) {
+        showToast(currentLang === 'ar' ? 'يجب الموافقة على الشروط والخصوصية' : 'You must agree to terms and privacy', 'warning');
+        return;
+      }
+
+      // إظهار حالة التحميل
+      btn.disabled = true;
+      btnText.classList.add('hidden');
+      btnLoader.classList.remove('hidden');
+
+      const contractData = {
+        clientName: name,
+        clientPhone: phone,
+        clientEmail: email,
+        clientCountry: country,
+        serviceType: service,
+        projectDetails: details,
+        budget: selectedBudget || 'غير محدد',
+        language: currentLang,
+        status: 'pending',
+        submittedAt: new Date().toISOString(),
+        timestamp: Date.now()
+      };
+
+      try {
+        // ============================================================
+        // حفظ البيانات في Firebase Realtime Database
+        // Save data to Firebase Realtime Database
+        // ============================================================
+        if (window.firebasePush && window.firebaseDB) {
+          const contractsRef = window.firebaseRef(window.firebaseDB, 'contracts');
+          const newRef = await window.firebasePush(contractsRef, {
+            ...contractData,
+            serverTimestamp: window.firebaseTimestamp ? window.firebaseTimestamp() : null
+          });
+          console.log('✅ تم حفظ البيانات في Firebase - ID:', newRef.key);
+        } else {
+          console.warn('⚠️ Firebase غير مُهيأ - تحقق من إعدادات Firebase');
+        }
+
+        // ============================================================
+        // إرسال إشعار بالبريد الإلكتروني عبر EmailJS
+        // Send email notification via EmailJS
+        // ============================================================
+        if (window.EMAILJS_CONFIG && window.EMAILJS_CONFIG.PUBLIC_KEY !== 'YOUR_EMAILJS_PUBLIC_KEY') {
+          emailjs.init(window.EMAILJS_CONFIG.PUBLIC_KEY);
+          
+          await emailjs.send(
+            window.EMAILJS_CONFIG.SERVICE_ID,
+            window.EMAILJS_CONFIG.TEMPLATE_ID,
+            {
+              to_email: window.EMAILJS_CONFIG.NOTIFICATION_EMAIL,
+              to_name: 'A.Y for Technology Admin',
+              from_name: name,
+              client_email: email,
+              client_phone: phone,
+              client_country: country,
+              service_type: service,
+              project_details: details,
+              budget: selectedBudget || 'غير محدد',
+              submitted_at: new Date().toLocaleString('ar-EG'),
+              subject: `🚀 طلب جديد من ${name} - ${service}`
+            }
+          );
+          console.log('✅ تم إرسال الإشعار بالبريد الإلكتروني بنجاح');
+        } else {
+          console.warn('⚠️ EmailJS غير مُهيأ - تحقق من إعدادات EmailJS');
+        }
+
+        // إظهار رسالة النجاح
+        document.getElementById('contractForm').classList.add('hidden');
+        document.getElementById('success-msg').classList.remove('hidden');
+        showToast(
+          currentLang === 'ar' ? 'تم إرسال طلبك بنجاح! سنتواصل معك قريباً' : 'Request sent successfully! We\'ll contact you soon',
+          'success'
+        );
+
+      } catch (error) {
+        console.error('❌ خطأ في الإرسال:', error);
+        showToast(
+          currentLang === 'ar' ? `حدث خطأ: ${error.message}` : `Error: ${error.message}`,
+          'error'
+        );
+        
+        // إعادة الزر لحالته الطبيعية
+        btn.disabled = false;
+        btnText.classList.remove('hidden');
+        btnLoader.classList.add('hidden');
+      }
+    }
+
+    // ============================================================
+    // إعادة تعيين النموذج
+    // Reset Form
+    // ============================================================
+    function resetForm() {
+      document.getElementById('contractForm').reset();
+      document.getElementById('contractForm').classList.remove('hidden');
+      document.getElementById('success-msg').classList.add('hidden');
+      
+      const btn = document.getElementById('submit-btn');
+      btn.disabled = false;
+      document.getElementById('btn-text').classList.remove('hidden');
+      document.getElementById('btn-loader').classList.add('hidden');
+      
+      selectedBudget = '';
+      document.querySelectorAll('.budget-card').forEach(card => {
+        card.style.background = '';
+        card.style.borderColor = 'rgba(99,102,241,0.3)';
+      });
+      
+      document.getElementById('char-count').textContent = '0 / 1000';
+    }
+
+    // ============================================================
+    // تهيئة أولية
+    // Initial Setup
+    // ============================================================
+    applyTranslation('ar');
+  </script>
+</body>
+</html>
