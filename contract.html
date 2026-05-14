@@ -1240,8 +1240,64 @@
         // إرسال إشعار بالبريد الإلكتروني عبر EmailJS
         // Send email notification via EmailJS
         // ============================================================
-       ERROR for site owner:
-Invalid domain for site key
+       // 1. فحص اختبار الروبوت (reCAPTCHA)
+        const recaptchaResponse = grecaptcha.getResponse();
+        if (recaptchaResponse.length === 0) {
+          showToast(
+            currentLang === 'ar' ? 'من فضلك أثبت أنك لست روبوت!' : 'Please verify that you are not a robot!',
+            'error'
+          );
+          btn.disabled = false;
+          btnText.classList.remove('hidden');
+          btnLoader.classList.add('hidden');
+          return; // توقف هنا لو محلوش الاختبار
+        }
+
+        // 2. إرسال الإيميل عبر EmailJS
+        if (window.EMAILJS_CONFIG && window.EMAILJS_CONFIG.PUBLIC_KEY !== 'YOUR_EMAILJS_PUBLIC_KEY') {
+          emailjs.init(window.EMAILJS_CONFIG.PUBLIC_KEY);
+          
+          await emailjs.send(
+            window.EMAILJS_CONFIG.SERVICE_ID,
+            window.EMAILJS_CONFIG.TEMPLATE_ID,
+            {
+              to_email: window.EMAILJS_CONFIG.NOTIFICATION_EMAIL,
+              to_name: 'A.Y for Technology Admin',
+              from_name: name,
+              client_email: email,
+              client_phone: phone,
+              client_country: country,
+              service_type: service,
+              project_details: details,
+              budget: selectedBudget || 'غير محدد',
+              submitted_at: new Date().toLocaleString('ar-EG'),
+              subject: `🚀 طلب جديد من ${name} - ${service}`,
+              'g-recaptcha-response': recaptchaResponse
+            }
+          );
+          console.log('✅ تم إرسال الإشعار بنجاح');
+          grecaptcha.reset(); // تصفير الاختبار بعد النجاح
+        }
+
+        // 3. إظهار رسالة النجاح للعميل
+        document.getElementById('contractForm').classList.add('hidden');
+        document.getElementById('success-msg').classList.remove('hidden');
+        showToast(
+          currentLang === 'ar' ? 'تم إرسال طلبك بنجاح! سنتواصل معك قريباً' : 'Request sent successfully! We\'ll contact you soon',
+          'success'
+        );
+
+      } catch (error) {
+        console.error('❌ خطأ في الإرسال:', error);
+        showToast(
+          currentLang === 'ar' ? `حدث خطأ: ${error.message}` : `Error: ${error.message}`,
+          'error'
+        );
+        btn.disabled = false;
+        btnText.classList.remove('hidden');
+        btnLoader.classList.add('hidden');
+      }
+    }
     // ============================================================
     // إعادة تعيين النموذج
     // Reset Form
