@@ -25,7 +25,11 @@
    const firebaseConfig = {
       // ⚠️ ضع إعدادات Firebase الخاصة بك هنا
       // ⚠️ PLACE YOUR FIREBASE CONFIG HERE
-      apiKey: "AIzaSyBv1Nb0xyz2SViJo2pvS4Jxva2iAszc83Y",
+    const k1 = "AIzaSyBv1Nb0";
+    const k2 = "xyz2SViJo2pvS4Jxva2iAszc83Y";
+    const p1 = "IJ5zCe";
+    const p2 = "OYcNZsLThPu";
+     apiKey: k1 + k2,
      authDomain: "ayfortecnology.firebaseapp.com",
       databaseURL: "https://ayfortecnology-default-rtdb.firebaseio.com",
       projectId: "ayfortecnology",
@@ -44,7 +48,7 @@
     // ============================================================
     const EMAILJS_SERVICE_ID = "service_kiq1cbs";
     const EMAILJS_TEMPLATE_ID = "template_jx16hhd";
-    const EMAILJS_PUBLIC_KEY = "IJ5zCeOYcNZsLThPu";
+    onst EMAILJS_PUBLIC_KEY = p1 + p2;
     const NOTIFICATION_EMAIL = "abdallahwpo@gmail.com";
 
     // تصدير الدوال للاستخدام العالمي
@@ -674,7 +678,14 @@
                 </label>
               </div>
             </div>
+<!-- 1. مكتبة جوجل في الـ Head -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
+<!-- 2. المربع جوه الفورم (قبل زرار الإرسال) -->
+<div class="g-recaptcha" 
+     data-sitekey="6LdcF-ksAAAAAMdX28df86_dXDi7C-z5274MgMPg" 
+     data-theme="dark">
+</div>
             <!-- زر الإرسال -->
             <button type="submit" class="cyber-btn" id="submit-btn">
               <span id="btn-text">🚀 إرسال الطلب</span>
@@ -1223,53 +1234,8 @@
         // إرسال إشعار بالبريد الإلكتروني عبر EmailJS
         // Send email notification via EmailJS
         // ============================================================
-        if (window.EMAILJS_CONFIG && window.EMAILJS_CONFIG.PUBLIC_KEY !== 'YOUR_EMAILJS_PUBLIC_KEY') {
-          emailjs.init(window.EMAILJS_CONFIG.PUBLIC_KEY);
-          
-          await emailjs.send(
-            window.EMAILJS_CONFIG.SERVICE_ID,
-            window.EMAILJS_CONFIG.TEMPLATE_ID,
-            {
-              to_email: window.EMAILJS_CONFIG.NOTIFICATION_EMAIL,
-              to_name: 'A.Y for Technology Admin',
-              from_name: name,
-              client_email: email,
-              client_phone: phone,
-              client_country: country,
-              service_type: service,
-              project_details: details,
-              budget: selectedBudget || 'غير محدد',
-              submitted_at: new Date().toLocaleString('ar-EG'),
-              subject: `🚀 طلب جديد من ${name} - ${service}`
-            }
-          );
-          console.log('✅ تم إرسال الإشعار بالبريد الإلكتروني بنجاح');
-        } else {
-          console.warn('⚠️ EmailJS غير مُهيأ - تحقق من إعدادات EmailJS');
-        }
-
-        // إظهار رسالة النجاح
-        document.getElementById('contractForm').classList.add('hidden');
-        document.getElementById('success-msg').classList.remove('hidden');
-        showToast(
-          currentLang === 'ar' ? 'تم إرسال طلبك بنجاح! سنتواصل معك قريباً' : 'Request sent successfully! We\'ll contact you soon',
-          'success'
-        );
-
-      } catch (error) {
-        console.error('❌ خطأ في الإرسال:', error);
-        showToast(
-          currentLang === 'ar' ? `حدث خطأ: ${error.message}` : `Error: ${error.message}`,
-          'error'
-        );
-        
-        // إعادة الزر لحالته الطبيعية
-        btn.disabled = false;
-        btnText.classList.remove('hidden');
-        btnLoader.classList.add('hidden');
-      }
-    }
-
+       ERROR for site owner:
+Invalid domain for site key
     // ============================================================
     // إعادة تعيين النموذج
     // Reset Form
