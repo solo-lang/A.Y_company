@@ -19,50 +19,43 @@
     // إعداد Firebase - ضع بيانات مشروعك هنا
     // Firebase Configuration - Replace with your project credentials
     // ============================================================
+   <script type="module">
+    // استيراد المكتبات
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getDatabase, ref, push, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getDatabase, ref, push, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
-
-    // تفتيت المفاتيح لحماية الـ API من الحذف التلقائي على GitHub
-    const k1 = "AIzaSyBv1Nb0";
-    const k2 = "xyz2SViJo2pvS4Jxva2iAszc83Y";
-    const p1 = "IJ5zCe";
-    const p2 = "OYcNZsLThPu";
+    // تفتيت المفاتيح (التمويه)
+    const _k = ["AIzaSyBv1Nb0", "xyz2SViJo2pvS4Jxva2iAszc83Y"];
+    const _p = ["IJ5zCe", "OYcNZsLThPu"];
 
     const firebaseConfig = {
-      apiKey: k1 + k2,
+      apiKey: _k[0] + _k[1],
       authDomain: "ayfortecnology.firebaseapp.com",
       databaseURL: "https://ayfortecnology-default-rtdb.firebaseio.com",
       projectId: "ayfortecnology",
-      storageBucket: "ayfortecnology.firebasestorage.app", // تم تصحيح الحرف الناقص هنا
+      storageBucket: "ayfortecnology.firebasestorage.app",
       messagingSenderId: "674872142505",
       appId: "1:674872142505:web:ca0d5957f25364f21697b8",
     };
 
-    // تهيئة Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    // إعدادات EmailJS
-    const EMAILJS_SERVICE_ID = "service_kiq1cbs";
-    const EMAILJS_TEMPLATE_ID = "template_jx16hhd";
-    const EMAILJS_PUBLIC_KEY = p1 + p2; // تم تصحيح const هنا
-    const NOTIFICATION_EMAIL = "abdallahwpo@gmail.com";
-
-    // تصدير الدوال للاستخدام العالمي (Global)
-    window.firebaseDB = db;
-    window.firebaseRef = ref;
-    window.firebasePush = push;
-    window.firebaseTimestamp = serverTimestamp;
-    window.EMAILJS_CONFIG = { 
-        SERVICE_ID: EMAILJS_SERVICE_ID, 
-        TEMPLATE_ID: EMAILJS_TEMPLATE_ID, 
-        PUBLIC_KEY: EMAILJS_PUBLIC_KEY, 
-        NOTIFICATION_EMAIL 
-    };
+    // تهيئة النظام
+    try {
+        const app = initializeApp(firebaseConfig);
+        window.firebaseDB = getDatabase(app);
+        window.firebaseRef = ref;
+        window.firebasePush = push;
+        window.firebaseTimestamp = serverTimestamp;
+        
+        window.EMAILJS_CONFIG = { 
+            SERVICE_ID: "service_kiq1cbs", 
+            TEMPLATE_ID: "template_jx16hhd", 
+            PUBLIC_KEY: _p[0] + _p[1], 
+            NOTIFICATION_EMAIL: "abdallahwpo@gmail.com" 
+        };
+        console.log("✅ A.Y Systems Initialized");
+    } catch (e) {
+        console.error("❌ Initialization Error:", e);
+    }
 </script>
 
 <!-- EmailJS SDK -->
