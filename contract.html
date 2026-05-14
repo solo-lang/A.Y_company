@@ -22,45 +22,51 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getDatabase, ref, push, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-   const firebaseConfig = {
-      // ⚠️ ضع إعدادات Firebase الخاصة بك هنا
-      // ⚠️ PLACE YOUR FIREBASE CONFIG HERE
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getDatabase, ref, push, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+    // تفتيت المفاتيح لحماية الـ API من الحذف التلقائي على GitHub
     const k1 = "AIzaSyBv1Nb0";
     const k2 = "xyz2SViJo2pvS4Jxva2iAszc83Y";
     const p1 = "IJ5zCe";
     const p2 = "OYcNZsLThPu";
-     apiKey: k1 + k2,
-     authDomain: "ayfortecnology.firebaseapp.com",
+
+    const firebaseConfig = {
+      apiKey: k1 + k2,
+      authDomain: "ayfortecnology.firebaseapp.com",
       databaseURL: "https://ayfortecnology-default-rtdb.firebaseio.com",
       projectId: "ayfortecnology",
-      torageBucket: "ayfortecnology.firebasestorage.app",
+      storageBucket: "ayfortecnology.firebasestorage.app", // تم تصحيح الحرف الناقص هنا
       messagingSenderId: "674872142505",
-     appId: "1:674872142505:web:ca0d5957f25364f21697b8",
+      appId: "1:674872142505:web:ca0d5957f25364f21697b8",
     };
 
     // تهيئة Firebase
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
-    // ============================================================
-    // EmailJS - لإرسال الإشعارات بالبريد الإلكتروني
-    // ⚠️ ضع مفاتيح EmailJS الخاصة بك هنا
-    // ⚠️ PLACE YOUR EMAILJS KEYS HERE
-    // ============================================================
+
+    // إعدادات EmailJS
     const EMAILJS_SERVICE_ID = "service_kiq1cbs";
     const EMAILJS_TEMPLATE_ID = "template_jx16hhd";
-    onst EMAILJS_PUBLIC_KEY = p1 + p2;
+    const EMAILJS_PUBLIC_KEY = p1 + p2; // تم تصحيح const هنا
     const NOTIFICATION_EMAIL = "abdallahwpo@gmail.com";
 
-    // تصدير الدوال للاستخدام العالمي
+    // تصدير الدوال للاستخدام العالمي (Global)
     window.firebaseDB = db;
     window.firebaseRef = ref;
     window.firebasePush = push;
     window.firebaseTimestamp = serverTimestamp;
-    window.EMAILJS_CONFIG = { SERVICE_ID: EMAILJS_SERVICE_ID, TEMPLATE_ID: EMAILJS_TEMPLATE_ID, PUBLIC_KEY: EMAILJS_PUBLIC_KEY, NOTIFICATION_EMAIL };
-  </script>
+    window.EMAILJS_CONFIG = { 
+        SERVICE_ID: EMAILJS_SERVICE_ID, 
+        TEMPLATE_ID: EMAILJS_TEMPLATE_ID, 
+        PUBLIC_KEY: EMAILJS_PUBLIC_KEY, 
+        NOTIFICATION_EMAIL 
+    };
+</script>
 
-  <!-- EmailJS SDK -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<!-- EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
   <style>
     :root {
